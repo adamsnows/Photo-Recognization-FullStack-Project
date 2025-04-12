@@ -1,0 +1,27 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Photo {
+    id                   Int      @id @default(autoincrement()) @map("id")
+    name                 String   @map("name")
+    collection           String   @map("collection")
+    location             String   @map("location")
+    models               String   @map("models")
+    creativeDirection    String   @map("creative_direction")
+    photography          String   @map("photography")
+    photographyAssistant String   @map("photography_assistant")
+    film                 String   @map("film")
+    styling              String   @map("styling")
+    beauty               String   @map("beauty")
+    setProduction        String   @map("set_production")
+    executiveProduction  String   @map("executive_production")
+    createdAt            DateTime @default(now()) @map("created_at")
+
+    @@map("photos")
+}
