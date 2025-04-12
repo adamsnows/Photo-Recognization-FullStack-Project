@@ -1,0 +1,21 @@
+import Image from "next/image";
+
+const GalleryCard = ({ url, description }) => {
+  return (
+    <div className="relative h-[320px] w-[193px]">
+      <Image
+        src={url}
+        priority
+        width={193}
+        height={320}
+        alt="Photo"
+        className="rounded-[18px] h-full w-full cover"
+      />
+      <div className="absolute w-full max-w-[142px] h-[32px] flex items-center justify-center z-1 bottom-0 left-1/2 right-1/2 -translate-x-1/2 rounded-[100px] bg-white mb-[30px]  text-[#333333]">
+        {description}
+      </div>
+    </div>
+  );
+};
+
+export default GalleryCard;
