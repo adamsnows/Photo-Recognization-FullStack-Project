@@ -10,7 +10,7 @@
     "build": "tsup src/server.ts --out-dir dist --format esm",
     "start": "node --enable-source-maps dist/server.js",
     "reset": "tsx prisma/reset.ts",
-    "docker-build-push": "docker buildx build --platform linux/amd64 -t gcr.io/adam-456215/photos-api . --push",
+    "docker-build-push": "docker buildx build --platform linux/amd64 -t gcr.io/adam-456215/photos-api .",
     "deploy": "gcloud run deploy photos-api --image gcr.io/adam-456215/photos-api --platform managed --region us-central1 --allow-unauthenticated --set-env-vars NODE_ENV=$NODE_ENV,POSTGRES_PASSWORD=$POSTGRES_PASSWORD,DATABASE_URL=$DATABASE_URL,BASE_URL=$BASE_URL,API_URL=$API_URL,HOST=$HOST",
     "release": "npm run docker-build-push && npm run deploy"
   },
