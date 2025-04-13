@@ -21,6 +21,5 @@ export async function getPhotos() {
             imageUrl: photo.imageUrl.replace(/\.\w+$/, '')
         };
     });
-    console.log('teste')
     return photosWithUrls;
 }
