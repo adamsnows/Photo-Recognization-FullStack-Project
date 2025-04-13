@@ -18,7 +18,7 @@ export async function getPhotos() {
             beauty: photo.beauty,
             setProduction: photo.setProduction,
             executiveProduction: photo.executiveProduction,
-            imageUrl: photo.imageUrl
+            imageUrl: photo.imageUrl.replace(/\.\w+$/, '')
         };
     });
 
