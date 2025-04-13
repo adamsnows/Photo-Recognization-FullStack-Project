@@ -10,10 +10,9 @@
     "build": "tsup src/server.ts --out-dir dist --format esm",
     "start": "node --enable-source-maps dist/server.js",
     "reset": "tsx prisma/reset.ts",
-    "docker-build": "docker buildx build --platform linux/amd64 -t gcr.io/adam-456215/photos-api .",
-    "docker-push": "docker push gcr.io/adam-456215/photos-api",
+    "docker-build-push": "docker buildx build --platform linux/amd64 -t gcr.io/adam-456215/photos-api . --push",
     "deploy": "gcloud run deploy photos-api --image gcr.io/adam-456215/photos-api --platform managed --region us-central1 --allow-unauthenticated --set-env-vars BASE_URL=https://photos-api-434732873433.us-central1.run.app",
-    "release": "npm run docker-build && npm run docker-push && npm run deploy"
+    "release": "npm run docker-build-push && npm run deploy"
   },
   "keywords": [],
   "author": "",

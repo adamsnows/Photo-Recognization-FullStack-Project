@@ -1,5 +1,23 @@
 FROM node:22.12.0-alpine AS builder
 
+# Defina os argumentos que receberão as variáveis de ambiente
+ARG NODE_ENV
+ARG POSTGRES_PASSWORD
+ARG DATABASE_URL
+ARG BASE_URL
+ARG PORT
+ARG API_URL
+ARG HOST
+
+# Defina as variáveis de ambiente no Docker
+ENV NODE_ENV=${NODE_ENV}
+ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+ENV DATABASE_URL=${DATABASE_URL}
+ENV BASE_URL=${BASE_URL}
+ENV PORT=${PORT}
+ENV API_URL=${API_URL}
+ENV HOST=${HOST}
+
 WORKDIR /app
 
 COPY package*.json ./
