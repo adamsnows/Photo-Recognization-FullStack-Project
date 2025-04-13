@@ -37,7 +37,6 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/src ./src
 COPY ./assets /app/assets 
-COPY .env .env
 
 ENV NODE_ENV=production
 
