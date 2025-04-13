@@ -1,5 +1,6 @@
 generator client {
     provider = "prisma-client-js"
+      output   = "./node_modules/.pnpm/@prisma+client@6.6.0_prisma@6.6.0_typescript@5.8.3__typescript@5.8.3/node_modules/@prisma/client"
 }
 
 datasource db {
@@ -22,6 +23,7 @@ model Photo {
     setProduction        String   @map("set_production")
     executiveProduction  String   @map("executive_production")
     createdAt            DateTime @default(now()) @map("created_at")
+    image                Bytes    @map("image")
 
     @@map("photos")
 }

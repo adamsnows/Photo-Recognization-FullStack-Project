@@ -11,7 +11,9 @@
     "db:deploy": "pnpm dlx prisma migrate deploy",
     "lint:check": "pnpm dlx @biomejs/biome format  ./src",
     "lint:apply": "pnpm dlx @biomejs/biome lint --write ./src",
-    "lint:fix": "pnpm dlx @biomejs/biome check --write ./src"
+    "lint:fix": "pnpm dlx @biomejs/biome check --write ./src",
+    "docker:dev": "tsx src/server.ts | pino-pretty",
+    "prisma": "prisma"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +31,7 @@
   "devDependencies": {
     "@types/node": "22.14.1",
     "prisma": "6.6.0",
+    "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"
   }
