@@ -42,6 +42,14 @@ jobs:
           --push
 
       - name: Deploy to Google Cloud Run
-        working-directory: ./backend  
+        working-directory: ./backend
+        env:
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+          PORT: ${{ secrets.PORT }}
+          API_URL: ${{ secrets.API_URL }}
+          HOST: ${{ secrets.HOST }}
         run: |
           npm run release
