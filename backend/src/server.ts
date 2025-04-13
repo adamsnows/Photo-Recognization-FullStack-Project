@@ -1,18 +1,32 @@
+import Fastify from 'fastify';
+import path from 'path';  
+import fastifyStatic from '@fastify/static';
+import { photosRoutes } from './photos/routes';
+import dotenv from 'dotenv';
+dotenv.config();
 
-import { app } from "./app";
 
-import { parsedEnvs } from "./envs";
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-const port = parsedEnvs.PORT;
-const host = parsedEnvs.HOST;
+const root = path.join(__dirname, 'images');
 
-app.listen({ port, host }, (err, address) => {
-	if (err) {
-		console.error(
-			`Error trying to run the server on port ${port}, error: ${err}`,
-		);
-		process.exit(1);
-	}
+const port = process.env.PORT || 3333; 
 
-	console.log(`Server is running on port ${port}, address: ${address}`);
+
+
+const server = Fastify();
+
+server.register(fastifyStatic, {
+  root: path.join(__dirname, 'images'),
+  prefix: '/images/',
+});
+
+server.register(photosRoutes);
+
+server.listen({ port: Number(port), host: '0.0.0.0' }, (err, address) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+  console.log(`Server listening at ${address}`);
 });

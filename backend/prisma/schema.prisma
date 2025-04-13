@@ -1,11 +1,18 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
-    provider = "prisma-client-js"
-      output   = "./node_modules/.pnpm/@prisma+client@6.6.0_prisma@6.6.0_typescript@5.8.3__typescript@5.8.3/node_modules/@prisma/client"
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Photo {
@@ -24,6 +31,8 @@ model Photo {
     executiveProduction  String   @map("executive_production")
     createdAt            DateTime @default(now()) @map("created_at")
     image                Bytes    @map("image")
+    fileName             String
+    imageUrl             String
 
     @@map("photos")
 }

@@ -1,28 +1,30 @@
-FROM node:20.13-alpine AS builder
+FROM node:22.12.0-alpine AS builder
 
-RUN npm install -g pnpm
+WORKDIR /app
 
-WORKDIR /home/node/app
-
-COPY package.json ./
-COPY prisma ./prisma/ 
-
-RUN pnpm install
+COPY package*.json ./
+RUN npm install
 
 COPY . .
 
-RUN pnpm dlx prisma generate
-RUN pnpm run build
+RUN npm run build
 
-FROM node:20.13-alpine
+FROM node:22.12.0-alpine
 
-RUN npm install -g pnpm
+WORKDIR /app
 
-WORKDIR /home/node/app
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/src ./src
+COPY ./assets /app/assets 
+COPY .env .env
 
-COPY --from=builder /home/node/app/package.json ./
-COPY --from=builder /home/node/app/node_modules ./node_modules
-COPY --from=builder /home/node/app/dist ./dist
-COPY --from=builder /home/node/app/prisma ./prisma
+ENV NODE_ENV=production
 
-CMD ["sh", "-c", "pnpm prisma migrate deploy && node dist/server.cjs"]
+EXPOSE $PORT
+
+CMD ["sh", "-c", "npm run reset && npm run dev"]
+
+
