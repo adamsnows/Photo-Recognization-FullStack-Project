@@ -1,7 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ImageSearchModal from "@/components/image-search-modal";
+import ImageSearchModal from "@/components/modals/search-image";
 import { ModalProvider } from "@/context/modal-context";
+import { ImageProvider } from "@/context/image-context";
+import AboutImageModal from "@/components/modals/about-image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,8 +27,11 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased container mx-auto font-geist`}
       >
         <ModalProvider>
-          {children}
-          <ImageSearchModal />
+          <ImageProvider>
+            {children}
+            <ImageSearchModal />
+            <AboutImageModal />
+          </ImageProvider>
         </ModalProvider>
       </body>
     </html>

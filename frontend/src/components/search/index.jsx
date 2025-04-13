@@ -23,7 +23,7 @@ const Search = () => {
           <div className="h-5 w-[1px] bg-[#8C8C8C]" />
           <IoCameraOutline
             className="text-[26px] cursor-pointer"
-            onClick={openModal}
+            onClick={() => openModal("search")}
           />
         </div>
       </div>

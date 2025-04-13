@@ -1,6 +1,6 @@
 import GalleryGrid from "@/components/gallery";
 import Header from "@/components/header";
-import ImageSearchModal from "@/components/image-search-modal";
+import ImageSearchModal from "@/components/modals/about-image";
 import Search from "@/components/search";
 
 export default function Home() {
