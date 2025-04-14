@@ -28,7 +28,16 @@ const ImageSearchModal = () => {
     onCropComplete,
     setCropSize,
     handleCropClick,
+    searchByImageFile,
+    searchResults,
   } = useImage();
+
+  const handleSearchClick = async () => {
+    const response = await fetch(preview);
+    const blob = await response.blob();
+    const file = new File([blob], "image.jpg", { type: blob.type });
+    await searchByImageFile(file);
+  };
 
   if (activeModal !== "search") return null;
 
@@ -137,7 +146,10 @@ const ImageSearchModal = () => {
                   >
                     Explorar <FiScissors className="rotate-180 text-[16px]" />
                   </div>
-                  <div className="flex items-center justify-center gap-2 rounded-[4px] px-4 py-1 bg-white text-[#434343] z-10 cursor-pointer">
+                  <div
+                    onClick={handleSearchClick}
+                    className="flex items-center justify-center gap-2 rounded-[4px] px-4 py-1 bg-white text-[#434343] z-10 cursor-pointer"
+                  >
                     Procurar imagem semelhante{" "}
                     <FaMagnifyingGlass className="text-[16px]" />
                   </div>
@@ -147,16 +159,29 @@ const ImageSearchModal = () => {
 
             <div className="w-full h-full overflow-y-auto pe-2">
               <div className="grid grid-cols-4 gap-2 h-full">
-                {[...Array(12)].map((_, i) => (
-                  <div key={i} className="w-full h-[272px]">
-                    <Skeleton
-                      height={272}
-                      baseColor="#e0e0e0"
-                      highlightColor="#f0f0f0"
-                      borderRadius={8}
-                    />
-                  </div>
-                ))}
+                {searchResults?.length > 0
+                  ? searchResults.map((result, i) => (
+                      <div
+                        key={i}
+                        className="w-full h-[272px] overflow-hidden rounded-[8px]"
+                      >
+                        <img
+                          src={result.url}
+                          alt={`Imagem ${i + 1}`}
+                          className="w-full h-full object-cover rounded-[8px]"
+                        />
+                      </div>
+                    ))
+                  : [...Array(12)].map((_, i) => (
+                      <div key={i} className="w-full h-[272px]">
+                        <Skeleton
+                          height={272}
+                          baseColor="#e0e0e0"
+                          highlightColor="#f0f0f0"
+                          borderRadius={8}
+                        />
+                      </div>
+                    ))}
               </div>
             </div>
           </div>

@@ -17,14 +17,14 @@ const server = Fastify();
 await server.register(cors, {
   origin: '*', 
 })
+await server.register(fastifyMultipart);
 
-server.register(fastifyStatic, {
+await server.register(fastifyStatic, {
   root: path.join(__dirname, 'images'),
   prefix: '/images/',
 });
 
-server.register(photosRoutes);
-server.register(fastifyMultipart);
+await server.register(photosRoutes);
 
 
 

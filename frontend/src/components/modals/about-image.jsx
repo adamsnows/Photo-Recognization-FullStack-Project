@@ -13,6 +13,14 @@ const AboutImageModal = () => {
 
   if (activeModal !== "about") return null;
 
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = modalData.imageUrl;
+    link.download = modalData.name || "image";
+    link.target = "_blank";
+    link.click();
+  };
+
   return (
     <div
       className="fixed inset-0 bg-black/10 backdrop-blur-sm flex items-center justify-center z-50"
@@ -75,7 +83,6 @@ const AboutImageModal = () => {
             </div>
 
             <div className="flex flex-wrap text-black/70 gap-1">
-              {/* Exibindo Skeleton ou Tags */}
               {isLoading ? (
                 <Skeleton count={5} width={100} />
               ) : (
@@ -103,7 +110,10 @@ const AboutImageModal = () => {
             </div>
 
             <div className="flex gap-2 items-center">
-              <button className="flex justify-center items-center bg-black/85 rounded-[75px] w-[150px] h-[30px] text-white cursor-pointer text-[14px]">
+              <button
+                className="flex justify-center items-center bg-black/85 rounded-[75px] w-[150px] h-[30px] text-white cursor-pointer text-[14px]"
+                onClick={handleDownload}
+              >
                 download
               </button>
               <button className="h-[30px] w-[30px] rounded-full border border-black/50 items-center flex justify-center cursor-pointer">

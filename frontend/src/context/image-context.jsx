@@ -1,5 +1,6 @@
 "use client";
 
+import api from "@/lib/api";
 import { createContext, useContext, useState, useCallback } from "react";
 
 const ImageContext = createContext();
@@ -9,6 +10,32 @@ export const useImage = () => {
 };
 
 export const ImageProvider = ({ children }) => {
+  const [preview, setPreview] = useState(null);
+  const [croppedPixels, setCroppedPixels] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [showCropper, setShowCropper] = useState(false);
+  const [cropSize, setCropSize] = useState({ width: 375, height: 400 });
+  const [isCropping, setIsCropping] = useState(false);
+  const [searchResults, setSearchResults] = useState(null);
+
+  const searchByImageFile = async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const res = await api.post("/search-by-image", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setSearchResults(res.data);
+    } catch (err) {
+      console.error("Erro ao buscar imagem semelhante:", err);
+    }
+  };
+
   const getCroppedImg = (imageSrc, croppedAreaPixels, zoom = 1) => {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -22,7 +49,6 @@ export const ImageProvider = ({ children }) => {
         const scaleY = image.naturalHeight / image.height;
 
         const { width, height, x, y } = croppedAreaPixels;
-
         const scaledWidth = width * scaleX;
         const scaledHeight = height * scaleY;
 
@@ -74,14 +100,6 @@ export const ImageProvider = ({ children }) => {
     });
   };
 
-  const [preview, setPreview] = useState(null);
-  const [croppedPixels, setCroppedPixels] = useState(null);
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-  const [showCropper, setShowCropper] = useState(false);
-  const [cropSize, setCropSize] = useState({ width: 375, height: 400 });
-  const [isCropping, setIsCropping] = useState(false);
-
   const onCropComplete = useCallback((_, croppedAreaPixels) => {
     setCroppedPixels(croppedAreaPixels);
   }, []);
@@ -92,6 +110,7 @@ export const ImageProvider = ({ children }) => {
     if (file && file.type.startsWith("image")) {
       const url = URL.createObjectURL(file);
       setPreview(url);
+      searchByImageFile(file);
     }
   };
 
@@ -100,6 +119,7 @@ export const ImageProvider = ({ children }) => {
     if (file && file.type.startsWith("image")) {
       const url = URL.createObjectURL(file);
       setPreview(url);
+      searchByImageFile(file);
     }
   };
 
@@ -139,6 +159,7 @@ export const ImageProvider = ({ children }) => {
     handleFileChange,
     handleCropClick,
     handleExploreClick,
+    searchResults,
   };
 
   return (
