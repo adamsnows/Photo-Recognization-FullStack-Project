@@ -54,12 +54,8 @@ export async function photosRoutes(fastify: FastifyInstance) {
 
   fastify.post("/search-by-image", async (req, reply) => {
     console.log("📥 Requisição recebida em /search-by-image");
-    console.log(req, "headers");
     console.log(req.body, "body");
-    console.log(req.query, "query");
-    console.log(req.params, "params");
     console.log(req.isMultipart(), "isMultipart");
-    console.log(reply, "reply");
   
     const parts = req.parts();
     let imageFound = false;
