@@ -63,6 +63,16 @@ npm run build         # Build de produção
 
 - O deploy é feito automaticamente quando a main do frontend ou backend é atualizada.
 
+- [Deploy do Frontend](farmrio-navy.vercel.app)
+- [Deploy do Backend](https://photos-api-434732873433.us-central1.run.app)
+
+
+## ✨ Rotas backend
+
+- /photos -> Trás todas fotos no banco de dados;
+- /search-by-image -> Procura fotos semelhantes usando uma imagem;
+- /search?term=<term> -> Procura fotos com algum dos termos citados na pesquisa.
+
 ---
 
 Desenvolvido por Adam.
