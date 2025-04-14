@@ -21,5 +21,12 @@ export async function searchPhotos(term: SearchPhotosInput['term']) {
         }
     })
 
-    return photos
+    const cleanedPhotos = photos.map(photo => {
+        return {
+            ...photo,
+            imageUrl: photo.imageUrl.replace(/\.\w+$/, '')
+        }
+    })
+
+    return cleanedPhotos
 }

@@ -3,16 +3,42 @@
 import { useModal } from "@/context/modal-context";
 import Image from "next/image";
 
-const GalleryCard = ({ url, description }) => {
+const GalleryCard = ({
+  id,
+  url,
+  collection,
+  name,
+  location,
+  models,
+  creativeDirection,
+  photography,
+  photographyAssistant,
+  film,
+  styling,
+  beauty,
+  setProduction,
+  executiveProduction,
+}) => {
   const { openModal } = useModal();
 
-  const imageData = {
-    title: "Sobre o Projeto",
-    description:
-      "Aqui você pode adicionar informações sobre o seu projeto, equipe, ou qualquer outra informação relevante para o usuário. teste",
-  };
-
   const handleOpenAboutModal = () => {
+    const imageData = {
+      id,
+      name,
+      collection,
+      location,
+      models,
+      creativeDirection,
+      photography,
+      photographyAssistant,
+      film,
+      styling,
+      beauty,
+      setProduction,
+      executiveProduction,
+      imageUrl: url,
+    };
+
     openModal("about", imageData);
   };
 
@@ -25,10 +51,10 @@ const GalleryCard = ({ url, description }) => {
         height={320}
         alt="Photo"
         className="rounded-[18px] h-full w-full cover cursor-pointer"
-        onClick={() => handleOpenAboutModal()}
+        onClick={handleOpenAboutModal}
       />
-      <div className="absolute w-full max-w-[142px] h-[32px] flex items-center justify-center z-1 bottom-0 left-1/2 right-1/2 -translate-x-1/2 rounded-[100px] bg-white mb-[30px]  text-[#333333]">
-        {description}
+      <div className="absolute w-full max-w-[142px] h-[32px] flex items-center justify-center z-1 bottom-0 left-1/2 right-1/2 -translate-x-1/2 rounded-[100px] bg-white mb-[30px] text-[#333333] lowercase">
+        {collection}
       </div>
     </div>
   );

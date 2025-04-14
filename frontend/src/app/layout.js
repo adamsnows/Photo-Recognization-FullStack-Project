@@ -4,6 +4,7 @@ import ImageSearchModal from "@/components/modals/search-image";
 import { ModalProvider } from "@/context/modal-context";
 import { ImageProvider } from "@/context/image-context";
 import AboutImageModal from "@/components/modals/about-image";
+import { SearchProvider } from "@/context/search-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +28,13 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased container mx-auto font-geist`}
       >
         <ModalProvider>
-          <ImageProvider>
-            {children}
-            <ImageSearchModal />
-            <AboutImageModal />
-          </ImageProvider>
+          <SearchProvider>
+            <ImageProvider>
+              {children}
+              <ImageSearchModal />
+              <AboutImageModal />
+            </ImageProvider>
+          </SearchProvider>
         </ModalProvider>
       </body>
     </html>

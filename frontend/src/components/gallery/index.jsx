@@ -1,14 +1,41 @@
-import Image from "next/image";
+"use client";
+
+import { useSearch } from "@/context/search-context";
 import GalleryCard from "../cards";
+import Skeleton from "react-loading-skeleton";
 
 const GalleryGrid = () => {
+  const { photos, loading } = useSearch();
+
+  console.log(photos);
+
   return (
-    <div className="grid grid-cols-5 gap-x-[20px]">
-      <GalleryCard url="/placeholder/1.png" description="criatividade" />
-      <GalleryCard url="/placeholder/2.png" description="cultura" />
-      <GalleryCard url="/placeholder/3.png" description="natureza" />
-      <GalleryCard url="/placeholder/4.png" description="faminino" />
-      <GalleryCard url="/placeholder/5.png" description="borogodo" />
+    <div className="grid grid-cols-5 gap-[20px]">
+      {loading
+        ? Array(10)
+            .fill(0)
+            .map((_, index) => (
+              <div
+                key={index}
+                className="relative h-[320px] w-[193px]  rounded-[18px]"
+              >
+                <Skeleton
+                  height="100%"
+                  width="100%"
+                  className="rounded-[18px]"
+                />
+              </div>
+            ))
+        : photos
+            .slice(0, 10)
+            .map((photo) => (
+              <GalleryCard
+                key={photo.id}
+                url={photo.imageUrl}
+                collection={photo.collection}
+                {...photo}
+              />
+            ))}
     </div>
   );
 };
