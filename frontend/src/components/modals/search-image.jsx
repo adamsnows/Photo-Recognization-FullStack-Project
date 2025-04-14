@@ -33,10 +33,17 @@ const ImageSearchModal = () => {
   } = useImage();
 
   const handleSearchClick = async () => {
-    const response = await fetch(preview);
-    const blob = await response.blob();
-    const file = new File([blob], "image.jpg", { type: blob.type });
-    await searchByImageFile(file);
+    if (file) {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      try {
+        const res = await api.post("/search-by-image", formData);
+        setSearchResults(res.data);
+      } catch (err) {
+        console.error("Erro ao buscar imagem semelhante:", err);
+      }
+    }
   };
 
   if (activeModal !== "search") return null;

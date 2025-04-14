@@ -25,7 +25,10 @@ await server.register(fastifyStatic, {
 });
 
 await server.register(multipart, {
-  attachFieldsToBody: true, 
+  attachFieldsToBody: true,
+  limits: {
+    fileSize: 10 * 1024 * 1024, 
+  },
 });
 
 await server.register(photosRoutes);

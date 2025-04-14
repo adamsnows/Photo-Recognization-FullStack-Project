@@ -18,6 +18,7 @@ export const ImageProvider = ({ children }) => {
   const [cropSize, setCropSize] = useState({ width: 375, height: 400 });
   const [isCropping, setIsCropping] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
+  const [file, setFile] = useState(null);
 
   const searchByImageFile = async (file) => {
     const formData = new FormData();
@@ -115,11 +116,26 @@ export const ImageProvider = ({ children }) => {
   };
 
   const handleFileChange = (event) => {
-    const file = event.target.files?.[0];
-    if (file && file.type.startsWith("image")) {
-      const url = URL.createObjectURL(file);
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile && selectedFile.type.startsWith("image")) {
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+
+      const url = URL.createObjectURL(selectedFile);
       setPreview(url);
-      searchByImageFile(file);
+
+      api
+        .post("/search-by-image", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log("Resultado:", response.data);
+        })
+        .catch((error) => {
+          console.error("Erro ao buscar imagem semelhante:", error);
+        });
     }
   };
 
@@ -139,6 +155,7 @@ export const ImageProvider = ({ children }) => {
   };
 
   const value = {
+    file,
     getCroppedImg,
     preview,
     setPreview,

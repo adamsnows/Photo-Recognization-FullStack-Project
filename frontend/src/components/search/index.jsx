@@ -18,7 +18,7 @@ const Search = () => {
         width={332}
         height={92}
       />
-      <div className="bg-[#F1F1F1] w-[690px] h-[58px] rounded-[100px] py-[5px] px-[35px] flex items-center justify-between">
+      <div className="bg-[#F1F1F1] w-full lg:w-[690px] h-[58px] rounded-[100px] py-[5px] px-[35px] flex items-center justify-between">
         <input
           className="w-full h-full"
           value={searchTerm}

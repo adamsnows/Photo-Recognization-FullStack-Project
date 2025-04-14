@@ -6,7 +6,6 @@ import { dirname } from 'path';
 import { photos } from './data';
 import { ImageAnnotatorClient } from '@google-cloud/vision';
 
-// Obtenha o diretório atual
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const baseUrl = process.env.BASE_URL ?? 'http://localhost:3333';

@@ -52,15 +52,16 @@ export async function photosRoutes(fastify: FastifyInstance) {
 
   fastify.post("/search-by-image", async (req, reply) => {
     const data = await req.file();
+  
     if (!data) {
       return reply.status(400).send({ message: "Imagem não fornecida" });
     }
-
+  
     try {
       const imageBuffer = await data.toBuffer();
-  
+    
       const result = await searchByImage(imageBuffer);
-  
+    
       if (result) {
         return reply.send(result);
       } else {
