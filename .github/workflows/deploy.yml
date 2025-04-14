@@ -47,5 +47,5 @@ jobs:
           PORT: ${{ secrets.PORT }}
           API_URL: ${{ secrets.API_URL }}
           HOST: ${{ secrets.HOST }}
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          GCP_SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
         run: npm run release
