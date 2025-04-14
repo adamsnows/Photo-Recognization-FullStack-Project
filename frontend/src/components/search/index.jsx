@@ -12,7 +12,7 @@ const Search = () => {
 
   return (
     <div className="flex flex-col gap-y-[32px] items-center justify-center">
-      <Image
+      <img
         src="/logo/black-logo.png"
         alt="FARMRIO Logo with pet"
         width={332}

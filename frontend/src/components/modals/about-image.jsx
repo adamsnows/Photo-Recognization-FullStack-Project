@@ -35,7 +35,7 @@ const AboutImageModal = () => {
             {isLoading ? (
               <Skeleton height="100%" width="100%" />
             ) : (
-              <Image
+              <img
                 src={modalData.imageUrl}
                 alt={modalData.name}
                 width={555}

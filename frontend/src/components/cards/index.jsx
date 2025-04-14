@@ -44,9 +44,8 @@ const GalleryCard = ({
 
   return (
     <div className="relative h-[320px] w-full lg:w-[193px]">
-      <Image
+      <img
         src={url}
-        priority
         fill
         alt="Photo"
         className="rounded-[18px] h-full w-full object-cover cursor-pointer"
