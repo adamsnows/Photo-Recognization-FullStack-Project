@@ -2,7 +2,7 @@ import { prisma } from "../../database/prisma-client";
 import { ImageAnnotatorClient } from "@google-cloud/vision";
 
 const visionClient = new ImageAnnotatorClient({
-    credentials: JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON ?? '{}'),
+    credentials: JSON.parse(process.env.GCP_SA_KEY ?? '{}'),
   });
 
 async function getImageEmbeddings(imageBuffer: Buffer) {
