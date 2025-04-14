@@ -51,33 +51,26 @@ export async function photosRoutes(fastify: FastifyInstance) {
   });
 
   fastify.post("/search-by-image", async (req, reply) => {
-    const data = await req.files();
-
-    console.log('data', data)
+    const parts = req.parts();
   
-    if (!data) {
-      return reply.status(400).send({ message: "Imagem não fornecida" });
-    }
-
-    console.log('passei do primeiro')
+    for await (const part of parts) {
+      if (part.type === 'file' && part.fieldname === 'image') {
+        try {
+          const imageBuffer = await part.toBuffer();
+          const result = await searchByImage(imageBuffer);
   
-    try {
-      const file = await data.next();
-      console.log('entrei no trycatch')
-      if (!file.value) {
-        return reply.status(400).send({ message: "Imagem não fornecida" });
+          if (result) {
+            return reply.send(result);
+          } else {
+            return reply.status(404).send({ message: "Nenhuma foto semelhante encontrada" });
+          }
+        } catch (error) {
+          return reply.status(500).send({ message: "Erro ao processar a imagem" });
+        }
       }
-      const imageBuffer = await file.value.toBuffer();
-    
-      const result = await searchByImage(imageBuffer);
-    
-      if (result) {
-        return reply.send(result);
-      } else {
-        return reply.status(404).send({ message: "Nenhuma foto semelhante encontrada" });
-      }
-    } catch (error) {
-      return reply.status(500).send({ message: "Erro ao processar a imagem" });
     }
+  
+    return reply.status(400).send({ message: "Imagem não fornecida" });
   });
+  
 }
