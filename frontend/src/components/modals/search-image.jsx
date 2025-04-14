@@ -42,8 +42,8 @@ const ImageSearchModal = () => {
         className={`${
           preview
             ? "w-[70%] max-w-[1280px] max-h-[690px]"
-            : "w-[690px] h-[420px]"
-        } rounded-[16px] py-[20px] px-[40px] flex bg-white shadow-[0px_4px_40px_rgba(0,0,0,0.1)] relative transition-all justify-center`}
+            : "w-[90%] lg:w-[690px] h-[420px]"
+        } rounded-[16px] py-[20px] px-2 lg:px-[40px] flex bg-white shadow-[0px_4px_40px_rgba(0,0,0,0.1)] relative transition-all justify-center`}
         onClick={(e) => e.stopPropagation()}
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
@@ -55,12 +55,12 @@ const ImageSearchModal = () => {
 
         {!preview ? (
           <div className="w-full outline-[1px] outline-dashed rounded-[8px] flex flex-col items-center justify-center m-6">
-            <span className="-mt-3 mb-4 text-[24px]">
+            <span className="-mt-3 mb-4 lg:text-[24px]">
               Pesquise qualquer imagem
             </span>
             <div className="flex gap-2 mb-[31px]">
               <CiImageOn className="text-[40px]" />
-              <span className="max-w-[275px] text-[18px] text-start">
+              <span className="max-w-[275px] lg:text-[18px] text-start">
                 Arraste uma imagem para cá ou
                 <br />
                 <label
