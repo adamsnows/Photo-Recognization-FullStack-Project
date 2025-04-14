@@ -1,4 +1,4 @@
-name: Deploy to GCP
+name: Deploy Backend and Frontend
 
 on:
   push:
@@ -6,7 +6,8 @@ on:
       - main
 
 jobs:
-  deploy:
+  backend-deploy:
+    if: contains(join(github.event.head_commit.modified, ','), 'backend/')
     runs-on: ubuntu-latest
 
     steps:
@@ -52,3 +53,27 @@ jobs:
           HOST: ${{ secrets.HOST }}
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         run: npm run release
+
+  frontend-deploy:
+    if: contains(join(github.event.head_commit.modified, ','), 'frontend/')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install -g vercel
+
+      - name: Deploy to Vercel
+        run: vercel --token ${{ secrets.VERCEL_TOKEN }} --prod --yes
