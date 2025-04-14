@@ -22,6 +22,7 @@ jobs:
         run: |
             echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" | base64 --decode > key.json
             gcloud auth activate-service-account --key-file=key.json
+            gcloud config set project adam-456215
 
       - name: Configure Docker to use the gcloud command-line tool as a credential helper
         run: gcloud auth configure-docker gcr.io --quiet
