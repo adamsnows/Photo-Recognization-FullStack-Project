@@ -139,7 +139,7 @@ const ImageSearchModal = () => {
                     Explorar <FiScissors className="rotate-180 text-[16px]" />
                   </div>
                   <div className="flex items-center justify-center gap-2 rounded-[4px] px-4 py-1 bg-white text-[#434343] z-10 cursor-pointer text-nowrap">
-                    Procurar imagem semelhante
+                    Procurar semelhante
                     <FaMagnifyingGlass className="text-[16px]" />
                   </div>
                 </div>
