@@ -47,8 +47,7 @@ const GalleryCard = ({
       <Image
         src={url}
         priority
-        width={193}
-        height={320}
+        fill
         alt="Photo"
         className="rounded-[18px] h-full w-full object-cover cursor-pointer"
         onClick={handleOpenAboutModal}

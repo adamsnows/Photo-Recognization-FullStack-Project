@@ -161,17 +161,30 @@ const ImageSearchModal = () => {
                   </div>
                 </div>
               ) : (
-                <div className="grid grid-cols-4 gap-2 h-full">
-                  {[...Array(12)].map((_, i) => (
-                    <Skeleton
-                      key={i}
-                      height={290}
-                      baseColor="#e0e0e0"
-                      highlightColor="#f0f0f0"
-                      borderRadius={8}
-                    />
-                  ))}
-                </div>
+                <>
+                  <div className="hidden lg:grid grid-cols-1 lg:grid-cols-4 gap-2 h-full">
+                    {[...Array(12)].map((_, i) => (
+                      <Skeleton
+                        key={i}
+                        height={290}
+                        baseColor="#e0e0e0"
+                        highlightColor="#f0f0f0"
+                        borderRadius={8}
+                      />
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-1 gap-2 h-full lg:hidden">
+                    {[...Array(1)].map((_, i) => (
+                      <Skeleton
+                        key={i}
+                        height={290}
+                        baseColor="#e0e0e0"
+                        highlightColor="#f0f0f0"
+                        borderRadius={8}
+                      />
+                    ))}
+                  </div>
+                </>
               )}
             </div>
           </div>
