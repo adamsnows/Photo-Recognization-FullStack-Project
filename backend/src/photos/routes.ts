@@ -54,8 +54,7 @@ export async function photosRoutes(fastify: FastifyInstance) {
 
   fastify.post("/search-by-image", async (req, reply) => {
     console.log("📥 Requisição recebida em /search-by-image");
-    console.log(req.body, "body");
-    console.log(req.isMultipart(), "isMultipart");
+    console.log("Content-Type:", req.headers['content-type']);  // Verifica o tipo de conteúdo
   
     const parts = req.parts();
     let imageFound = false;
@@ -70,12 +69,11 @@ export async function photosRoutes(fastify: FastifyInstance) {
   
       if (part.type === 'file' && part.fieldname === 'image') {
         imageFound = true;
-        const file = part as MultipartFile;
+        const file = part;
   
         try {
           console.log("📦 Lendo buffer da imagem...");
           const imageBuffer = await file.toBuffer();
-  
           console.log("🤖 Chamando searchByImage com buffer de tamanho:", imageBuffer.length);
           const result = await searchByImage(imageBuffer);
   
