@@ -19,23 +19,7 @@ export const ImageProvider = ({ children }) => {
   const [isCropping, setIsCropping] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
   const [file, setFile] = useState(null);
-
-  const searchByImageFile = async (file) => {
-    const formData = new FormData();
-    formData.append("image", file);
-
-    try {
-      const res = await api.post("/search-by-image", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      setSearchResults(res.data);
-    } catch (err) {
-      console.error("Erro ao buscar imagem semelhante:", err);
-    }
-  };
+  const [searchImageResults, setSearchImageResults] = useState(null);
 
   const getCroppedImg = (imageSrc, croppedAreaPixels, zoom = 1) => {
     const canvas = document.createElement("canvas");
@@ -117,7 +101,7 @@ export const ImageProvider = ({ children }) => {
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files?.[0];
-    console.log(selectedFile);
+
     if (selectedFile && selectedFile.type.startsWith("image")) {
       const formData = new FormData();
       formData.append("image", selectedFile);
@@ -126,13 +110,10 @@ export const ImageProvider = ({ children }) => {
       setPreview(url);
 
       api
-        .post("/search-by-image", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .post("/search-by-image", formData)
         .then((response) => {
           console.log("Resultado:", response.data);
+          setSearchImageResults(response.data);
         })
         .catch((error) => {
           console.error("Erro ao buscar imagem semelhante:", error);
@@ -178,6 +159,7 @@ export const ImageProvider = ({ children }) => {
     handleCropClick,
     handleExploreClick,
     searchResults,
+    searchImageResults,
   };
 
   return (

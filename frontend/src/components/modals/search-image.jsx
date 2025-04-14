@@ -28,8 +28,7 @@ const ImageSearchModal = () => {
     onCropComplete,
     setCropSize,
     handleCropClick,
-    searchByImageFile,
-    searchResults,
+    searchImageResults,
   } = useImage();
 
   if (activeModal !== "search") return null;
@@ -148,31 +147,30 @@ const ImageSearchModal = () => {
             </div>
 
             <div className="w-full h-full overflow-y-auto pe-2">
-              <div className="grid grid-cols-4 gap-2 h-full">
-                {searchResults?.length > 0
-                  ? searchResults.map((result, i) => (
-                      <div
-                        key={i}
-                        className="w-full h-[272px] overflow-hidden rounded-[8px]"
-                      >
-                        <img
-                          src={result.url}
-                          alt={`Imagem ${i + 1}`}
-                          className="w-full h-full object-cover rounded-[8px]"
-                        />
-                      </div>
-                    ))
-                  : [...Array(12)].map((_, i) => (
-                      <div key={i} className="w-full h-[272px]">
-                        <Skeleton
-                          height={272}
-                          baseColor="#e0e0e0"
-                          highlightColor="#f0f0f0"
-                          borderRadius={8}
-                        />
-                      </div>
-                    ))}
-              </div>
+              {searchImageResults?.similarPhoto ? (
+                <div className="grid grid-cols-1 gap-2 h-full">
+                  <div className="w-full h-[272px] overflow-hidden rounded-[8px]">
+                    <img
+                      src={searchImageResults.similarPhoto.imageUrl}
+                      alt={searchImageResults.similarPhoto.name}
+                      className="w-full h-full object-cover rounded-[8px]"
+                    />
+                  </div>
+                </div>
+              ) : (
+                [...Array(12)].map((_, i) => (
+                  <div key={i} className="grid grid-cols-4 gap-2 h-full">
+                    <div className="w-full h-[272px]">
+                      <Skeleton
+                        height={272}
+                        baseColor="#e0e0e0"
+                        highlightColor="#f0f0f0"
+                        borderRadius={8}
+                      />
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         )}
