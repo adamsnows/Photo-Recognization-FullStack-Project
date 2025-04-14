@@ -48,12 +48,15 @@ export const SearchProvider = ({ children }) => {
     }
   };
 
-  const debouncedSearch = debounce((term) => handleSearch(term), 2000);
+  const debouncedSearch = debounce((term) => handleSearch(term), 1000);
 
   useEffect(() => {
-    if (searchTerm) {
+    if (searchTerm === "") {
+      handleSearch("");
+    } else {
       debouncedSearch(searchTerm);
     }
+
     return () => {
       debouncedSearch.cancel();
     };
