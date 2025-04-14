@@ -39,7 +39,7 @@ jobs:
       - name: Deploy to Google Cloud Run
         run: |
           gcloud run deploy farm-rio \
-            --image gcr.io/adam-456215/next-app \
+            --image gcr.io/adam-456215/farm-rio \
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated \
