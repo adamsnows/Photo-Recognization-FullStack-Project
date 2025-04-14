@@ -131,7 +131,7 @@ const ImageSearchModal = () => {
                   </div>
                 </>
               ) : (
-                <div className="absolute bottom-[120px] justify-center items-center flex flex-col gap-2 text-[12px]">
+                <div className="absolute bottom-[50px] justify-center items-center flex flex-col gap-2 text-[12px]">
                   <div
                     onClick={handleExploreClick}
                     className="flex items-center justify-center gap-1 rounded-[4px] px-4 py-1 bg-white text-[#434343] z-10 cursor-pointer"
@@ -149,27 +149,26 @@ const ImageSearchModal = () => {
             <div className="w-full h-full overflow-y-auto pe-2">
               {searchImageResults?.similarPhoto ? (
                 <div className="grid grid-cols-1 gap-2 h-full">
-                  <div className="w-full h-[272px] overflow-hidden rounded-[8px]">
+                  <div className=" h-full overflow-hidden relative">
                     <img
                       src={searchImageResults.similarPhoto.imageUrl}
                       alt={searchImageResults.similarPhoto.name}
-                      className="w-full h-full object-cover rounded-[8px]"
+                      className=" h-full object-cover rounded-[8px] mx-auto"
                     />
                   </div>
                 </div>
               ) : (
-                [...Array(12)].map((_, i) => (
-                  <div key={i} className="grid grid-cols-4 gap-2 h-full">
-                    <div className="w-full h-[272px]">
-                      <Skeleton
-                        height={272}
-                        baseColor="#e0e0e0"
-                        highlightColor="#f0f0f0"
-                        borderRadius={8}
-                      />
-                    </div>
-                  </div>
-                ))
+                <div className="grid grid-cols-4 gap-2 h-full">
+                  {[...Array(12)].map((_, i) => (
+                    <Skeleton
+                      key={i}
+                      height={290}
+                      baseColor="#e0e0e0"
+                      highlightColor="#f0f0f0"
+                      borderRadius={8}
+                    />
+                  ))}
+                </div>
               )}
             </div>
           </div>
