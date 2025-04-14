@@ -86,8 +86,8 @@ const ImageSearchModal = () => {
             </button>
           </div>
         ) : (
-          <div className="w-full flex gap-4 p-6 justify-center items-center">
-            <div className="w-[600px] h-[600px] relative bg-gray-50 flex items-center justify-center rounded-[8px]">
+          <div className="w-full flex-col lg:flex gap-4 lg:p-6 justify-center items-center">
+            <div className="lg:w-[600px] lg:h-[600px] relative bg-gray-50 flex items-center justify-center rounded-[8px]">
               {showCropper ? (
                 <Cropper
                   image={preview}
@@ -104,7 +104,7 @@ const ImageSearchModal = () => {
                 <img
                   src={preview}
                   alt="Pré-visualização"
-                  className="object-cover w-full h-full rounded-[8px]"
+                  className="object-cover h-[300px] lg:w-full lg:h-full rounded-[8px] mb-2 lg:mb-0"
                 />
               )}
 
@@ -146,14 +146,17 @@ const ImageSearchModal = () => {
               )}
             </div>
 
-            <div className="w-full h-full overflow-y-auto pe-2">
+            <div className="lg:w-full lg:h-full overflow-y-auto lg:pe-2 text-center">
+              <span className="lg:hidden text-[12px] text-black/50 ">
+                Resultados da pesquisa
+              </span>
               {searchImageResults?.similarPhoto ? (
                 <div className="grid grid-cols-1 gap-2 h-full">
                   <div className=" h-full overflow-hidden relative">
                     <img
                       src={searchImageResults.similarPhoto.imageUrl}
                       alt={searchImageResults.similarPhoto.name}
-                      className=" h-full object-cover rounded-[8px] mx-auto"
+                      className="h-[300px] lg:h-full object-cover rounded-[8px] mx-auto"
                     />
                   </div>
                 </div>
