@@ -112,7 +112,6 @@ export const ImageProvider = ({ children }) => {
       api
         .post("/search-by-image", formData)
         .then((response) => {
-          console.log("Resultado:", response.data);
           setSearchImageResults(response.data);
         })
         .catch((error) => {
