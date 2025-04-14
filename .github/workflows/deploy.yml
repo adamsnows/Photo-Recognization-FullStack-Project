@@ -18,10 +18,11 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Set up Google Cloud credentials
+        run: echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" | base64 --decode > google-service-account.json
+
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+        run: gcloud auth activate-service-account --key-file=google-service-account.json
 
       - name: Configure Docker to use the gcloud command-line tool as a credential helper
         run: gcloud auth configure-docker gcr.io --quiet
@@ -40,7 +41,6 @@ jobs:
       - name: Deploy to Google Cloud Run
         working-directory: ./backend
         env:
-          
           NODE_ENV: ${{ secrets.NODE_ENV }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
