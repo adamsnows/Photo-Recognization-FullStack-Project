@@ -4,6 +4,8 @@ import fastifyStatic from '@fastify/static';
 import { photosRoutes } from './photos/routes';
 import dotenv from 'dotenv';
 import cors from '@fastify/cors';
+import fastifyMultipart from 'fastify-multipart';
+
 
 dotenv.config();
 
@@ -22,6 +24,8 @@ server.register(fastifyStatic, {
 });
 
 server.register(photosRoutes);
+server.register(fastifyMultipart);
+
 
 
 

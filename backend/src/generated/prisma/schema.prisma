@@ -33,6 +33,7 @@ model Photo {
   image                Bytes    @map("image")
   fileName             String
   imageUrl             String
+  embeddings           Json?    @map("embeddings")
 
   @@map("photos")
 }

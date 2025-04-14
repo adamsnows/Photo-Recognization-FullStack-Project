@@ -947,6 +947,7 @@ export namespace Prisma {
     image: number
     fileName: number
     imageUrl: number
+    embeddings: number
     _all: number
   }
 
@@ -1017,6 +1018,7 @@ export namespace Prisma {
     image?: true
     fileName?: true
     imageUrl?: true
+    embeddings?: true
     _all?: true
   }
 
@@ -1124,6 +1126,7 @@ export namespace Prisma {
     image: Uint8Array
     fileName: string
     imageUrl: string
+    embeddings: JsonValue | null
     _count: PhotoCountAggregateOutputType | null
     _avg: PhotoAvgAggregateOutputType | null
     _sum: PhotoSumAggregateOutputType | null
@@ -1163,6 +1166,7 @@ export namespace Prisma {
     image?: boolean
     fileName?: boolean
     imageUrl?: boolean
+    embeddings?: boolean
   }, ExtArgs["result"]["photo"]>
 
   export type PhotoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1183,6 +1187,7 @@ export namespace Prisma {
     image?: boolean
     fileName?: boolean
     imageUrl?: boolean
+    embeddings?: boolean
   }, ExtArgs["result"]["photo"]>
 
   export type PhotoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1203,6 +1208,7 @@ export namespace Prisma {
     image?: boolean
     fileName?: boolean
     imageUrl?: boolean
+    embeddings?: boolean
   }, ExtArgs["result"]["photo"]>
 
   export type PhotoSelectScalar = {
@@ -1223,9 +1229,10 @@ export namespace Prisma {
     image?: boolean
     fileName?: boolean
     imageUrl?: boolean
+    embeddings?: boolean
   }
 
-  export type PhotoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "collection" | "location" | "models" | "creativeDirection" | "photography" | "photographyAssistant" | "film" | "styling" | "beauty" | "setProduction" | "executiveProduction" | "createdAt" | "image" | "fileName" | "imageUrl", ExtArgs["result"]["photo"]>
+  export type PhotoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "collection" | "location" | "models" | "creativeDirection" | "photography" | "photographyAssistant" | "film" | "styling" | "beauty" | "setProduction" | "executiveProduction" | "createdAt" | "image" | "fileName" | "imageUrl" | "embeddings", ExtArgs["result"]["photo"]>
 
   export type $PhotoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Photo"
@@ -1248,6 +1255,7 @@ export namespace Prisma {
       image: Uint8Array
       fileName: string
       imageUrl: string
+      embeddings: Prisma.JsonValue | null
     }, ExtArgs["result"]["photo"]>
     composites: {}
   }
@@ -1688,6 +1696,7 @@ export namespace Prisma {
     readonly image: FieldRef<"Photo", 'Bytes'>
     readonly fileName: FieldRef<"Photo", 'String'>
     readonly imageUrl: FieldRef<"Photo", 'String'>
+    readonly embeddings: FieldRef<"Photo", 'Json'>
   }
     
 
@@ -2085,7 +2094,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     image: 'image',
     fileName: 'fileName',
-    imageUrl: 'imageUrl'
+    imageUrl: 'imageUrl',
+    embeddings: 'embeddings'
   };
 
   export type PhotoScalarFieldEnum = (typeof PhotoScalarFieldEnum)[keyof typeof PhotoScalarFieldEnum]
@@ -2099,12 +2109,37 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -2169,6 +2204,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2206,6 +2255,7 @@ export namespace Prisma {
     image?: BytesFilter<"Photo"> | Uint8Array
     fileName?: StringFilter<"Photo"> | string
     imageUrl?: StringFilter<"Photo"> | string
+    embeddings?: JsonNullableFilter<"Photo">
   }
 
   export type PhotoOrderByWithRelationInput = {
@@ -2226,6 +2276,7 @@ export namespace Prisma {
     image?: SortOrder
     fileName?: SortOrder
     imageUrl?: SortOrder
+    embeddings?: SortOrderInput | SortOrder
   }
 
   export type PhotoWhereUniqueInput = Prisma.AtLeast<{
@@ -2249,6 +2300,7 @@ export namespace Prisma {
     image?: BytesFilter<"Photo"> | Uint8Array
     fileName?: StringFilter<"Photo"> | string
     imageUrl?: StringFilter<"Photo"> | string
+    embeddings?: JsonNullableFilter<"Photo">
   }, "id">
 
   export type PhotoOrderByWithAggregationInput = {
@@ -2269,6 +2321,7 @@ export namespace Prisma {
     image?: SortOrder
     fileName?: SortOrder
     imageUrl?: SortOrder
+    embeddings?: SortOrderInput | SortOrder
     _count?: PhotoCountOrderByAggregateInput
     _avg?: PhotoAvgOrderByAggregateInput
     _max?: PhotoMaxOrderByAggregateInput
@@ -2297,6 +2350,7 @@ export namespace Prisma {
     image?: BytesWithAggregatesFilter<"Photo"> | Uint8Array
     fileName?: StringWithAggregatesFilter<"Photo"> | string
     imageUrl?: StringWithAggregatesFilter<"Photo"> | string
+    embeddings?: JsonNullableWithAggregatesFilter<"Photo">
   }
 
   export type PhotoCreateInput = {
@@ -2316,6 +2370,7 @@ export namespace Prisma {
     image: Uint8Array
     fileName: string
     imageUrl: string
+    embeddings?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type PhotoUncheckedCreateInput = {
@@ -2336,6 +2391,7 @@ export namespace Prisma {
     image: Uint8Array
     fileName: string
     imageUrl: string
+    embeddings?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type PhotoUpdateInput = {
@@ -2355,6 +2411,7 @@ export namespace Prisma {
     image?: BytesFieldUpdateOperationsInput | Uint8Array
     fileName?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    embeddings?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type PhotoUncheckedUpdateInput = {
@@ -2375,6 +2432,7 @@ export namespace Prisma {
     image?: BytesFieldUpdateOperationsInput | Uint8Array
     fileName?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    embeddings?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type PhotoCreateManyInput = {
@@ -2395,6 +2453,7 @@ export namespace Prisma {
     image: Uint8Array
     fileName: string
     imageUrl: string
+    embeddings?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type PhotoUpdateManyMutationInput = {
@@ -2414,6 +2473,7 @@ export namespace Prisma {
     image?: BytesFieldUpdateOperationsInput | Uint8Array
     fileName?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    embeddings?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type PhotoUncheckedUpdateManyInput = {
@@ -2434,6 +2494,7 @@ export namespace Prisma {
     image?: BytesFieldUpdateOperationsInput | Uint8Array
     fileName?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    embeddings?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -2479,6 +2540,34 @@ export namespace Prisma {
     notIn?: Uint8Array[] | ListBytesFieldRefInput<$PrismaModel>
     not?: NestedBytesFilter<$PrismaModel> | Uint8Array
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
 
   export type PhotoCountOrderByAggregateInput = {
     id?: SortOrder
@@ -2498,6 +2587,7 @@ export namespace Prisma {
     image?: SortOrder
     fileName?: SortOrder
     imageUrl?: SortOrder
+    embeddings?: SortOrder
   }
 
   export type PhotoAvgOrderByAggregateInput = {
@@ -2604,6 +2694,32 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBytesFilter<$PrismaModel>
     _max?: NestedBytesFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -2735,6 +2851,40 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBytesFilter<$PrismaModel>
     _max?: NestedBytesFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
 

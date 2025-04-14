@@ -1,0 +1,45 @@
+import { prisma } from "../../database/prisma-client";
+import { ImageAnnotatorClient } from "@google-cloud/vision";
+
+const visionClient = new ImageAnnotatorClient();
+
+async function getImageEmbeddings(imageBuffer: Buffer) {
+  const [result] = await visionClient.labelDetection(imageBuffer);
+  return result.labelAnnotations?.map(label => label.description) ?? []; 
+}
+
+export async function searchByImage(imageBuffer: Buffer) {
+    const incomingEmbeddings = await getImageEmbeddings(imageBuffer);
+    const photos = await prisma.photo.findMany();
+    
+    let maxSimilarity = -1;
+    let mostSimilarPhoto = null;
+  
+    for (const photo of photos) {
+      let storedEmbeddings: string[] = [];
+  
+      if (photo.embeddings) {
+        try {
+          storedEmbeddings = JSON.parse(photo.embeddings as string);
+        } catch (error) {
+          continue;
+        }
+      } else {
+        continue;
+      }
+  
+      if (Array.isArray(incomingEmbeddings) && Array.isArray(storedEmbeddings)) {
+        const intersection = incomingEmbeddings.filter(label => 
+          typeof label === 'string' && storedEmbeddings.includes(label)
+        );
+        const similarity = intersection.length / Math.max(incomingEmbeddings.length, storedEmbeddings.length);
+      
+        if (similarity > maxSimilarity) {
+          maxSimilarity = similarity;
+          mostSimilarPhoto = photo;
+        }
+      }
+    }
+  
+    return mostSimilarPhoto ? { similarPhoto: mostSimilarPhoto, similarity: maxSimilarity } : null;
+  }

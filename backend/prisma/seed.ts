@@ -4,6 +4,7 @@ import { PrismaClient } from '../src/generated/prisma';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { photos } from './data';
+import { ImageAnnotatorClient } from '@google-cloud/vision';
 
 // Obtenha o diretório atual
 const __filename = fileURLToPath(import.meta.url);
@@ -11,9 +12,14 @@ const __dirname = dirname(__filename);
 const baseUrl = process.env.BASE_URL ?? 'http://localhost:3333';
 
 const prisma = new PrismaClient();
+const visionClient = new ImageAnnotatorClient();
+
+async function getImageEmbeddings(imagePath) {
+  const [result] = await visionClient.labelDetection(imagePath);
+  return result.labelAnnotations?.map(label => label.description) ?? []; 
+}
 
 async function resetPhotos() {
-  // Deleta todas as fotos
   await prisma.photo.deleteMany({});
   console.log('Todas as fotos foram deletadas.');
 }
@@ -24,12 +30,12 @@ async function populatePhotos() {
   console.log('Conexão estabelecida!');
 
   for (const photo of photos) {
-    const imageBuffer = fs.readFileSync(
-      path.resolve(__dirname, '..', 'assets', 'images', photo.imagePath)
-      
-    );
-    console.log('Lendo imagem de:', photo.imagePath)
+    const imagePath = path.resolve(__dirname, '..', 'assets', 'images', photo.imagePath);
+    const imageBuffer = fs.readFileSync(imagePath);
+    console.log('Lendo imagem de:', photo.imagePath);
     
+    const embeddings = await getImageEmbeddings(imagePath);
+
     await prisma.photo.create({
       data: {
         name: photo.name,
@@ -46,7 +52,8 @@ async function populatePhotos() {
         executiveProduction: photo.executiveProduction,
         image: imageBuffer,
         fileName: photo.imagePath,
-        imageUrl: `${baseUrl}/images/${photo.imagePath}`
+        imageUrl: `${baseUrl}/images/${photo.imagePath}`,
+        embeddings: JSON.stringify(embeddings), 
       },
     });
   }
