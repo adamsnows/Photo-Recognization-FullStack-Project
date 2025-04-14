@@ -5,9 +5,6 @@ import { getPhotos } from "./get-photos/use-case";
 import { SearchPhotosInput } from "./search-photos/schemas";
 import { searchPhotos } from "./search-photos/use-case";
 import { searchByImage } from "./search-by-image/use-case";
-import { buffer } from "stream/consumers";
-
-
 
 interface Params {
     id: string;
@@ -58,14 +55,19 @@ export async function photosRoutes(fastify: FastifyInstance) {
     if (!data) {
       return reply.status(400).send({ message: "Imagem não fornecida" });
     }
+
+    try {
+      const imageBuffer = await data.toBuffer();
   
-    const imageBuffer = await buffer(data.file);
+      const result = await searchByImage(imageBuffer);
   
-    const result = await searchByImage(imageBuffer);
-    if (result) {
-      return reply.send(result);
-    } else {
-      return reply.status(404).send({ message: "Nenhuma foto semelhante encontrada" });
+      if (result) {
+        return reply.send(result);
+      } else {
+        return reply.status(404).send({ message: "Nenhuma foto semelhante encontrada" });
+      }
+    } catch (error) {
+      return reply.status(500).send({ message: "Erro ao processar a imagem" });
     }
   });
 }

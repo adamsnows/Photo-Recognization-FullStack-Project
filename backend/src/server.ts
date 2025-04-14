@@ -4,7 +4,7 @@ import fastifyStatic from '@fastify/static';
 import { photosRoutes } from './photos/routes';
 import dotenv from 'dotenv';
 import cors from '@fastify/cors';
-import fastifyMultipart from 'fastify-multipart';
+import multipart from '@fastify/multipart';
 
 
 dotenv.config();
@@ -17,11 +17,15 @@ const server = Fastify();
 await server.register(cors, {
   origin: '*', 
 })
-await server.register(fastifyMultipart);
+
 
 await server.register(fastifyStatic, {
   root: path.join(__dirname, 'images'),
   prefix: '/images/',
+});
+
+await server.register(multipart, {
+  attachFieldsToBody: true, 
 });
 
 await server.register(photosRoutes);
