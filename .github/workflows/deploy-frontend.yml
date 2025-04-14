@@ -32,9 +32,9 @@ jobs:
         run: |
           docker buildx build --platform linux/amd64 \
             --tag gcr.io/adam-456215/farm-rio \
-            --file ./web/Dockerfile \
+            --file ./frontend/Dockerfile \
             --push \
-            ./web
+            ./frontend
 
       - name: Deploy to Google Cloud Run
         run: |
