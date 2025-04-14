@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 import cors from '@fastify/cors';
 import multipart from '@fastify/multipart';
 
-
 dotenv.config();
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
@@ -14,22 +13,24 @@ const root = path.join(__dirname, 'images');
 const port = process.env.PORT || 3333; 
 
 const server = Fastify();
+
+await server.register(multipart, {
+  attachFieldsToBody: false,
+  limits: {
+    fileSize: 10 * 1024 * 1024, 
+  },
+});
+
 await server.register(cors, {
   origin: '*', 
 })
-
 
 await server.register(fastifyStatic, {
   root: path.join(__dirname, 'images'),
   prefix: '/images/',
 });
 
-await server.register(multipart, {
-  attachFieldsToBody: true,
-  limits: {
-    fileSize: 10 * 1024 * 1024, 
-  },
-});
+
 
 await server.register(photosRoutes);
 
