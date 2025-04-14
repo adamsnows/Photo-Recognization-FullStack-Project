@@ -44,22 +44,24 @@ Este é um projeto full stack para gerenciamento e busca inteligente de imagens,
 
 ### Backend
 ```bash
-pnpm dev           # Inicia a API em modo desenvolvimento
-pnpm seed          # Popula o banco de dados
-pnpm build         # Compila o servidor
-pnpm release       # Faz build + push do Docker + deploy no GCP
+npm run dev           # Inicia a API em modo desenvolvimento
+npm run seed          # Popula o banco de dados
+npm run build         # Compila o servidor
+npm run release       # Faz build + push do Docker + deploy no GCP
 ```
 
 ### Frontend
 ```bash
-pnpm dev           # Inicia o frontend local
-pnpm build         # Build de produção
+npm run dev           # Inicia o frontend local
+npm run build         # Build de produção
 ```
 
 ## 🚀 Deploy
 
 - **Frontend:** Vercel com CI/CD automático via GitHub Actions.
 - **Backend:** GCP com CI/CD automático via Github Actions.
+
+- O deploy é feito automaticamente quando a main do frontend ou backend é atualizada.
 
 ---
 
