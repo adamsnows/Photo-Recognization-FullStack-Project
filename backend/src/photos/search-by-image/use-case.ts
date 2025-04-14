@@ -50,5 +50,13 @@ export async function searchByImage(imageBuffer: Buffer) {
     }
   }
 
-  return mostSimilarPhoto ? { similarPhoto: mostSimilarPhoto, similarity: maxSimilarity } : null;
+  return mostSimilarPhoto
+  ? {
+      similarPhoto: {
+        ...mostSimilarPhoto,
+        imageUrl: mostSimilarPhoto.imageUrl.replace(/\.\w+$/, ''),
+      },
+      similarity: maxSimilarity,
+    }
+  : null;
 }
