@@ -32,20 +32,6 @@ const ImageSearchModal = () => {
     searchResults,
   } = useImage();
 
-  const handleSearchClick = async () => {
-    if (file) {
-      const formData = new FormData();
-      formData.append("image", file);
-
-      try {
-        const res = await api.post("/search-by-image", formData);
-        setSearchResults(res.data);
-      } catch (err) {
-        console.error("Erro ao buscar imagem semelhante:", err);
-      }
-    }
-  };
-
   if (activeModal !== "search") return null;
 
   return (
@@ -153,10 +139,7 @@ const ImageSearchModal = () => {
                   >
                     Explorar <FiScissors className="rotate-180 text-[16px]" />
                   </div>
-                  <div
-                    onClick={handleSearchClick}
-                    className="flex items-center justify-center gap-2 rounded-[4px] px-4 py-1 bg-white text-[#434343] z-10 cursor-pointer"
-                  >
+                  <div className="flex items-center justify-center gap-2 rounded-[4px] px-4 py-1 bg-white text-[#434343] z-10 cursor-pointer">
                     Procurar imagem semelhante{" "}
                     <FaMagnifyingGlass className="text-[16px]" />
                   </div>

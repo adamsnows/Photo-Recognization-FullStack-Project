@@ -39,3 +39,8 @@ input {
 .reactEasyCrop_CropArea {
   border-radius: 10px !important;
 }
+
+* {
+  transition: all;
+  transition-duration: 300ms;
+}

@@ -117,6 +117,7 @@ export const ImageProvider = ({ children }) => {
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files?.[0];
+    console.log(selectedFile);
     if (selectedFile && selectedFile.type.startsWith("image")) {
       const formData = new FormData();
       formData.append("image", selectedFile);
