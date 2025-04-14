@@ -23,6 +23,7 @@ Este é um projeto full stack para gerenciamento e busca inteligente de imagens,
 - [Next.js](https://nextjs.org/) — Framework React para aplicações web modernas.
 - [Tailwind CSS](https://tailwindcss.com/) — Estilização com utilitários.
 - [React Easy Crop](https://github.com/ValeryBugakov/react-easy-crop) — Componente para seleção e corte de imagem.
+- Deploy em **Google Cloud Run** com **Docker**.
 
 ## 🗂 Estrutura do Monorepo
 
@@ -63,7 +64,7 @@ npm run build         # Build de produção
 
 - O deploy é feito automaticamente quando a main do frontend ou backend é atualizada.
 
-- [Deploy do Frontend](farmrio-navy.vercel.app)
+- [Deploy do Frontend](https://farm-rio-434732873433.us-central1.run.app)
 - [Deploy do Backend](https://photos-api-434732873433.us-central1.run.app)
 
 
