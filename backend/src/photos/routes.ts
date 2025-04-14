@@ -50,27 +50,47 @@ export async function photosRoutes(fastify: FastifyInstance) {
       .send(photo.image);
   });
 
-  fastify.post("/search-by-image", async (req, reply) => {
-    const parts = req.parts();
-  
-    for await (const part of parts) {
-      if (part.type === 'file' && part.fieldname === 'image') {
-        try {
-          const imageBuffer = await part.toBuffer();
-          const result = await searchByImage(imageBuffer);
-  
-          if (result) {
-            return reply.send(result);
-          } else {
-            return reply.status(404).send({ message: "Nenhuma foto semelhante encontrada" });
-          }
-        } catch (error) {
-          return reply.status(500).send({ message: "Erro ao processar a imagem" });
+fastify.post("/search-by-image", async (req, reply) => {
+  console.log("➡️ Rota /search-by-image chamada");
+
+  const parts = req.parts();
+  let foundFile = false;
+
+  for await (const part of parts) {
+    console.log("📦 Parte recebida:", {
+      type: part.type,
+      fieldname: part.fieldname,
+      mime: part.mimetype,
+    });
+
+    if (part.type === 'file' && part.fieldname === 'image') {
+      foundFile = true;
+
+      try {
+        const imageBuffer = await part.toBuffer();
+        console.log("🧠 Imagem convertida em buffer. Tamanho:", imageBuffer.length);
+
+        const result = await searchByImage(imageBuffer);
+        console.log("🔍 Resultado da busca:", result);
+
+        if (result) {
+          return reply.send(result);
+        } else {
+          console.log("⚠️ Nenhuma imagem semelhante encontrada");
+          return reply.status(404).send({ message: "Nenhuma foto semelhante encontrada" });
         }
+      } catch (error) {
+        console.error("❌ Erro ao processar a imagem:", error);
+        return reply.status(500).send({ message: "Erro ao processar a imagem" });
       }
     }
-  
-    return reply.status(400).send({ message: "Imagem não fornecida" });
-  });
+  }
+
+  if (!foundFile) {
+    console.warn("🚫 Nenhum arquivo do tipo 'image' foi encontrado no multipart");
+  }
+
+  return reply.status(400).send({ message: "Imagem não fornecida" });
+});
   
 }
