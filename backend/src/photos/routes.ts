@@ -53,31 +53,49 @@ export async function photosRoutes(fastify: FastifyInstance) {
 
 
   fastify.post("/search-by-image", async (req, reply) => {
+    console.log("📥 Requisição recebida em /search-by-image");
+  
     const parts = req.parts();
+    let encontrouImagem = false;
   
     for await (const part of parts) {
+      console.log("🔍 Parte recebida:", {
+        type: part.type,
+        fieldname: part.fieldname,
+        filename: (part as any).filename,
+        mimetype: (part as any).mimetype,
+      });
+  
       if (part.type === 'file' && part.fieldname === 'image') {
+        encontrouImagem = true;
         const file = part as MultipartFile;
   
         try {
+          console.log("📦 Lendo buffer da imagem...");
           const imageBuffer = await file.toBuffer();
+  
+          console.log("🤖 Chamando searchByImage com buffer de tamanho:", imageBuffer.length);
           const result = await searchByImage(imageBuffer);
   
           if (result) {
+            console.log("✅ Imagem semelhante encontrada:", result);
             return reply.send(result);
           } else {
+            console.log("❌ Nenhuma foto semelhante encontrada");
             return reply.status(404).send({ message: "Nenhuma foto semelhante encontrada" });
           }
         } catch (error) {
-          console.error("Erro ao processar imagem:", error);
+          console.error("🔥 Erro ao processar imagem:", error);
           return reply.status(500).send({ message: "Erro ao processar a imagem" });
         }
       }
     }
   
+    if (!encontrouImagem) {
+      console.warn("🚫 Nenhum arquivo do tipo 'image' foi encontrado no multipart");
+    }
+  
     return reply.status(400).send({ message: "Imagem não fornecida" });
   });
-  
-  
   
 }

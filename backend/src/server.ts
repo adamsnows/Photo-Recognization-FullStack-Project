@@ -33,9 +33,6 @@ await server.register(multipart, {
 
 await server.register(photosRoutes);
 
-
-
-
 server.listen({ port: Number(port), host: '0.0.0.0' }, (err, address) => {
   if (err) {
     console.error(err);
