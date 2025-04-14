@@ -152,13 +152,11 @@ const ImageSearchModal = () => {
               </span>
               {searchImageResults?.similarPhoto ? (
                 <div className="grid grid-cols-1 gap-2 h-full">
-                  <div className=" h-full overflow-hidden relative">
-                    <img
-                      src={searchImageResults.similarPhoto.imageUrl}
-                      alt={searchImageResults.similarPhoto.name}
-                      className="h-[300px] lg:h-full object-cover rounded-[8px] mx-auto"
-                    />
-                  </div>
+                  <img
+                    src={searchImageResults.similarPhoto.imageUrl}
+                    alt={searchImageResults.similarPhoto.name}
+                    className="h-[300px] lg:h-full object-cover rounded-[8px] mx-auto"
+                  />
                 </div>
               ) : (
                 <>
@@ -173,7 +171,7 @@ const ImageSearchModal = () => {
                       />
                     ))}
                   </div>
-                  <div className="grid grid-cols-1 gap-2 h-full lg:hidden">
+                  <div className="grid grid-cols-1 gap-2 lg:hidden">
                     {[...Array(1)].map((_, i) => (
                       <Skeleton
                         key={i}
