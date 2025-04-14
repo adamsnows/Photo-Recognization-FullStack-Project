@@ -86,7 +86,7 @@ const ImageSearchModal = () => {
             </button>
           </div>
         ) : (
-          <div className="w-full flex-col lg:flex gap-4 lg:p-6 justify-center items-center">
+          <div className="w-full flex flex-col lg:flex-row gap-4 lg:p-6 justify-center items-center">
             <div className="lg:w-[600px] lg:h-[600px] relative bg-gray-50 flex items-center justify-center rounded-[8px]">
               {showCropper ? (
                 <Cropper
@@ -138,8 +138,8 @@ const ImageSearchModal = () => {
                   >
                     Explorar <FiScissors className="rotate-180 text-[16px]" />
                   </div>
-                  <div className="flex items-center justify-center gap-2 rounded-[4px] px-4 py-1 bg-white text-[#434343] z-10 cursor-pointer">
-                    Procurar imagem semelhante{" "}
+                  <div className="flex items-center justify-center gap-2 rounded-[4px] px-4 py-1 bg-white text-[#434343] z-10 cursor-pointer text-nowrap">
+                    Procurar imagem semelhante
                     <FaMagnifyingGlass className="text-[16px]" />
                   </div>
                 </div>
