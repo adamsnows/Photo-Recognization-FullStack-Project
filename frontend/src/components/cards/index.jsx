@@ -5,6 +5,7 @@ import { useSearch } from "@/context/search-context";
 import { Trash2 } from "lucide-react";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { toast } from "react-toastify";
 
 const GalleryCard = ({
   id,
@@ -56,6 +57,9 @@ const GalleryCard = ({
           label: "Sim",
           onClick: () => {
             handleDeletePhoto(id);
+            toast("Imagem excluída com sucesso!", {
+              type: "success",
+            });
           },
         },
         {
