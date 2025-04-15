@@ -140,7 +140,7 @@ export async function photosRoutes(fastify: FastifyInstance) {
     try {
       const photo = await prisma.photo.findUnique({
         where: {
-          id: Number(id),
+          id: id,
         },
       });
   
@@ -150,7 +150,7 @@ export async function photosRoutes(fastify: FastifyInstance) {
   
       await prisma.photo.delete({
         where: {
-          id: Number(id),
+          id: id,
         },
       });
   
