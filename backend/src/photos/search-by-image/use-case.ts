@@ -14,23 +14,21 @@ async function getImageEmbeddings(imageBuffer: Buffer) {
 }
 
 export async function searchByImage(imageBuffer: Buffer) {
+  
   const incomingEmbeddings = await getImageEmbeddings(imageBuffer);
+  console.log(incomingEmbeddings)
   const photos = await prisma.photo.findMany();
 
-  let maxSimilarity = -1;
-  let mostSimilarPhoto = null;
+  const similarPhotos = [];
 
   for (const photo of photos) {
-    let storedEmbeddings: string[] = [];
+    if (!photo.embeddings || typeof photo.embeddings !== "string") continue;
 
-    if (photo.embeddings) {
-      try {
-        storedEmbeddings = JSON.parse(photo.embeddings as string);
-      } catch (error) {
-        console.error("Erro ao processar embeddings da foto armazenada:", error);
-        continue;
-      }
-    } else {
+    let storedEmbeddings: string[];
+
+    try {
+      storedEmbeddings = JSON.parse(photo.embeddings);
+    } catch {
       continue;
     }
 
@@ -38,23 +36,18 @@ export async function searchByImage(imageBuffer: Buffer) {
       const intersection = incomingEmbeddings.filter(label => 
         typeof label === 'string' && storedEmbeddings.includes(label)
       );
-      
+
       const similarity = intersection.length / Math.max(incomingEmbeddings.length, storedEmbeddings.length);
-    
-      if (similarity > maxSimilarity) {
-        maxSimilarity = similarity;
-        mostSimilarPhoto = photo;
+
+      if (similarity >= 0.4) {
+        similarPhotos.push({
+          ...photo,
+          imageUrl: photo.imageUrl.replace(/\.\w+$/, ''),
+          similarity,
+        });
       }
     }
   }
 
-  return mostSimilarPhoto
-  ? {
-      similarPhoto: {
-        ...mostSimilarPhoto,
-        imageUrl: mostSimilarPhoto.imageUrl.replace(/\.\w+$/, ''),
-      },
-      similarity: maxSimilarity,
-    }
-  : null;
+  return similarPhotos;
 }
