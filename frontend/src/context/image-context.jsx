@@ -96,7 +96,6 @@ export const ImageProvider = ({ children }) => {
     if (file && file.type.startsWith("image")) {
       const url = URL.createObjectURL(file);
       setPreview(url);
-      searchByImageFile(file);
     }
   };
 
