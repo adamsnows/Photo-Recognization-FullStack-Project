@@ -5,7 +5,7 @@ import Search from "@/components/search";
 
 export default function Home() {
   return (
-    <div className="min-h-[calc(100vh-66px)] flex flex-col container">
+    <div className="min-h-[calc(100vh-66px)] flex flex-col container mx-auto">
       <Header />
       <div className="flex flex-1 items-center justify-center flex-col">
         <div className="my-8">
