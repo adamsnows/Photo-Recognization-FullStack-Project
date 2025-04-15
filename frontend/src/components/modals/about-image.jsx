@@ -27,26 +27,26 @@ const AboutImageModal = () => {
       onClick={closeModal}
     >
       <div
-        className="w-[938px] h-[831px] rounded-[16px] flex bg-white shadow-[0px_4px_40px_rgba(0,0,0,0.1)] relative transition-all"
+        className="w-[90%] max-h-[90%] lg:w-[938px] rounded-[16px] flex bg-white shadow-[0px_4px_40px_rgba(0,0,0,0.1)] relative transition-all"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="grid grid-cols-3 max-h-[831px] overflow-hidden items-center text-start">
-          <div className="col-span-2">
+        <div className="grid grid-cols-1 lg:grid-cols-3 overflow-hidden items-center text-start">
+          <div className="col-span-1 lg:col-span-2">
             {isLoading ? (
               <Skeleton height="100%" width="100%" />
             ) : (
-              <img
-                src={`https://photos-api-434732873433.us-central1.run.app/images/${modalData.id}`}
-                alt={modalData.name}
-                width={555}
-                height={938}
-                className="h-full object-cover"
-              />
+              <div className="h-[350px] overflow-hidden">
+                <img
+                  src={`https://photos-api-434732873433.us-central1.run.app/images/${modalData.id}`}
+                  alt={modalData.name}
+                  className="h-[100%] w-full object-cover object-center rounded-t-2xl"
+                />
+              </div>
             )}
           </div>
 
-          <div className="flex flex-col gap-8 -ms-6 text-[11px]">
-            <div className="flex flex-col text-start text-black/60 gap-3">
+          <div className="flex flex-col gap-8 p-2 lg:-ms-6 text-[11px]">
+            <div className="flex flex-col text-start text-black/60 lg:gap-3">
               {isLoading ? (
                 <>
                   <Skeleton width={200} />
@@ -128,7 +128,7 @@ const AboutImageModal = () => {
         </div>
 
         <IoIosClose
-          className="text-black text-[42px] absolute z-1 right-0 top-0 cursor-pointer m-2"
+          className="text-white shadow-2xl drop-shadow-2xl  lg:text-black text-[42px] absolute z-1 right-0 top-0 cursor-pointer m-2"
           onClick={closeModal}
         />
       </div>
