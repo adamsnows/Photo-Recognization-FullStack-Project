@@ -16,7 +16,6 @@ async function getImageEmbeddings(imageBuffer: Buffer) {
 export async function searchByImage(imageBuffer: Buffer) {
   
   const incomingEmbeddings = await getImageEmbeddings(imageBuffer);
-  console.log(incomingEmbeddings)
   const photos = await prisma.photo.findMany();
 
   const similarPhotos = [];
