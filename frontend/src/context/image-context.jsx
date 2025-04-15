@@ -20,6 +20,7 @@ export const ImageProvider = ({ children }) => {
   const [searchResults, setSearchResults] = useState(null);
   const [file, setFile] = useState(null);
   const [searchImageResults, setSearchImageResults] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getCroppedImg = (imageSrc, croppedAreaPixels, zoom = 1) => {
     const canvas = document.createElement("canvas");
@@ -108,23 +109,50 @@ export const ImageProvider = ({ children }) => {
 
       const url = URL.createObjectURL(selectedFile);
       setPreview(url);
+      setIsLoading(true);
 
       api
         .post("/search-by-image", formData)
         .then((response) => {
+          console.log("💬 Dados recebidos:", response.data);
           setSearchImageResults(response.data);
         })
         .catch((error) => {
           console.error("Erro ao buscar imagem semelhante:", error);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     }
   };
 
-  const handleCropClick = async () => {
+  const handleCropAndSearch = async () => {
     if (isCropping && preview && croppedPixels) {
+      setSearchImageResults([]);
       const croppedImageUrl = await getCroppedImg(preview, croppedPixels, zoom);
       setPreview(croppedImageUrl);
+
+      const response = await fetch(croppedImageUrl);
+      const blob = await response.blob();
+      const croppedFile = new File([blob], "cropped-image.jpg", {
+        type: "image/jpeg",
+      });
+
+      const formData = new FormData();
+      formData.append("image", croppedFile);
+
       setShowCropper(false);
+      setIsLoading(true);
+
+      try {
+        const result = await api.post("/search-by-image", formData);
+        console.log("💬 Dados recebidos:", result.data);
+        setSearchImageResults(result.data);
+      } catch (error) {
+        console.error("Erro ao buscar imagem semelhante:", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -154,8 +182,9 @@ export const ImageProvider = ({ children }) => {
     setIsCropping,
     onCropComplete,
     handleDrop,
+    isLoading,
     handleFileChange,
-    handleCropClick,
+    handleCropAndSearch,
     handleExploreClick,
     searchResults,
     searchImageResults,

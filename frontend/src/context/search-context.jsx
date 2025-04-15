@@ -62,11 +62,22 @@ export const SearchProvider = ({ children }) => {
     };
   }, [searchTerm]);
 
+  const handleDeletePhoto = async (id) => {
+    try {
+      await api.delete(`/photos/${id}`);
+      setAllPhotos(allPhotos.filter((photo) => photo.id !== id));
+      setPhotos(photos.filter((photo) => photo.id !== id));
+    } catch (error) {
+      console.error("Erro ao deletar foto:", error);
+    }
+  };
+
   const value = {
     searchTerm,
     setSearchTerm,
     photos,
     loading,
+    handleDeletePhoto,
   };
 
   return (

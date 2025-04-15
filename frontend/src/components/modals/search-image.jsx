@@ -27,8 +27,9 @@ const ImageSearchModal = () => {
     zoom,
     onCropComplete,
     setCropSize,
-    handleCropClick,
+    handleCropAndSearch,
     searchImageResults,
+    isLoading, // Supondo que você tenha um estado `isLoading` no contexto de imagem
   } = useImage();
 
   if (activeModal !== "search") return null;
@@ -41,8 +42,8 @@ const ImageSearchModal = () => {
       <div
         className={`${
           preview
-            ? "w-[70%] max-w-[1280px] max-h-[690px]"
-            : "w-[90%] lg:w-[690px] h-[420px]"
+            ? "w-[80%] max-w-[1580px] max-h-[690px] 2xl:max-h-[790]"
+            : "w-[90%] lg:w-[790px] h-[420px]"
         } rounded-[16px] py-[20px] px-2 lg:px-[40px] flex bg-white shadow-[0px_4px_40px_rgba(0,0,0,0.1)] relative transition-all justify-center`}
         onClick={(e) => e.stopPropagation()}
         onDrop={handleDrop}
@@ -117,7 +118,7 @@ const ImageSearchModal = () => {
                     </div>
 
                     <div
-                      onClick={handleCropClick}
+                      onClick={handleCropAndSearch}
                       className="flex items-center justify-center gap-1 rounded-[4px] px-4 py-1 bg-white text-[#434343] z-10 cursor-pointer"
                     >
                       Recortar <FiScissors className="rotate-180 text-[16px]" />
@@ -150,39 +151,38 @@ const ImageSearchModal = () => {
               <span className="lg:hidden text-[12px] text-black/50 ">
                 Resultados da pesquisa
               </span>
-              {searchImageResults?.similarPhoto ? (
-                <div className="grid grid-cols-1 gap-2 h-full">
-                  <img
-                    src={searchImageResults.similarPhoto.imageUrl}
-                    alt={searchImageResults.similarPhoto.name}
-                    className="h-[300px] lg:h-full object-cover rounded-[8px] mx-auto"
-                  />
+              {isLoading ? (
+                <div className="hidden lg:grid grid-cols-1 lg:[grid-template-columns:repeat(auto-fit,minmax(200px,1fr))] gap-2 h-full">
+                  {[...Array(4)].map((_, i) => (
+                    <Skeleton
+                      key={i}
+                      height={290}
+                      baseColor="#e0e0e0"
+                      highlightColor="#f0f0f0"
+                      borderRadius={8}
+                    />
+                  ))}
+                </div>
+              ) : searchImageResults?.length > 0 ? (
+                <div className="lg:w-full lg:h-full overflow-y-auto lg:pe-2 text-center">
+                  <span className="lg:hidden text-[12px] text-black/50">
+                    Resultados da pesquisa
+                  </span>
+                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-2 h-full">
+                    {searchImageResults.map((photo) => (
+                      <img
+                        key={photo.id}
+                        src={`https://photos-api-434732873433.us-central1.run.app/images/${photo.id}`}
+                        alt={photo.name}
+                        className="h-[300px] lg:h-full object-cover rounded-[8px] mx-auto"
+                      />
+                    ))}
+                  </div>
                 </div>
               ) : (
-                <>
-                  <div className="hidden lg:grid grid-cols-1 lg:grid-cols-4 gap-2 h-full">
-                    {[...Array(12)].map((_, i) => (
-                      <Skeleton
-                        key={i}
-                        height={290}
-                        baseColor="#e0e0e0"
-                        highlightColor="#f0f0f0"
-                        borderRadius={8}
-                      />
-                    ))}
-                  </div>
-                  <div className="grid grid-cols-1 gap-2 lg:hidden">
-                    {[...Array(1)].map((_, i) => (
-                      <Skeleton
-                        key={i}
-                        height={290}
-                        baseColor="#e0e0e0"
-                        highlightColor="#f0f0f0"
-                        borderRadius={8}
-                      />
-                    ))}
-                  </div>
-                </>
+                <div className="text-center mt-4 text-gray-500 flex items-center justify-center h-[95%]">
+                  Sem fotos similares encontradas.
+                </div>
               )}
             </div>
           </div>

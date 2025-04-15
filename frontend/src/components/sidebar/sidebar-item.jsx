@@ -33,8 +33,6 @@ const SidebarItem = ({ icon, label, path, onClick }) => {
               >
                 {icon}
               </Button>
-
-              <div className=" xl:hidden">{label}</div>
             </div>
           </Link>
         </TooltipTrigger>

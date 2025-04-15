@@ -36,7 +36,7 @@ const AboutImageModal = () => {
               <Skeleton height="100%" width="100%" />
             ) : (
               <img
-                src={modalData.imageUrl}
+                src={`https://photos-api-434732873433.us-central1.run.app/images/${modalData.id}`}
                 alt={modalData.name}
                 width={555}
                 height={938}

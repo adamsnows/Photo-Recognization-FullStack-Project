@@ -1,7 +1,10 @@
 "use client";
 
 import { useModal } from "@/context/modal-context";
+import { useSearch } from "@/context/search-context";
 import { Trash2 } from "lucide-react";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const GalleryCard = ({
   id,
@@ -21,6 +24,7 @@ const GalleryCard = ({
   hasDelete,
 }) => {
   const { openModal } = useModal();
+  const { handleDeletePhoto } = useSearch();
 
   const handleOpenAboutModal = () => {
     const imageData = {
@@ -43,18 +47,37 @@ const GalleryCard = ({
     openModal("about", imageData);
   };
 
+  const handleDelete = () => {
+    confirmAlert({
+      title: "Confirmar exclusão",
+      message: "Você tem certeza que deseja excluir esta foto?",
+      buttons: [
+        {
+          label: "Sim",
+          onClick: () => {
+            handleDeletePhoto(id);
+          },
+        },
+        {
+          label: "Não",
+          onClick: () => console.log("Exclusão cancelada"),
+        },
+      ],
+    });
+  };
+
   return (
     <div className="relative h-[320px] w-full lg:w-[193px]">
       {hasDelete && (
         <div
           className="absolute top-2 right-2 z-10 bg-white rounded-full p-1 shadow-xl drop-shadow-xl cursor-pointer"
-          onClick={() => console.log("delete", id)}
+          onClick={handleDelete}
         >
           <Trash2 className="h-4 w-4 text-black" />
         </div>
       )}
       <img
-        src={url}
+        src={`https://photos-api-434732873433.us-central1.run.app/images/${id}`}
         alt="Photo"
         className="rounded-[18px] h-full w-full object-cover cursor-pointer drop-shadow-md shadow-md"
         onClick={handleOpenAboutModal}

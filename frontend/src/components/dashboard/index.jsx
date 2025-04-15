@@ -11,7 +11,7 @@ const DashboardLayout = ({ children }) => {
       <div className="flex w-full flex-col ">
         <Navbar />
 
-        <div className="flex flex-grow flex-col p-[25px]   z-0 relative ">
+        <div className="flex flex-grow flex-col p-[25px] transition-all duration-300 z-0 relative ">
           {children}
         </div>
       </div>
