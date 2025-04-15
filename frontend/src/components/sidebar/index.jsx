@@ -8,7 +8,7 @@ import { routes } from "@/components/sidebar/routes";
 
 export function Sidebar() {
   return (
-    <aside className="w-[100px] sticky xl:block min-w-[100px] flex flex-col justify-between	bg-white px-2 py-4 h-dvh drop-shadow shadow z-99 top-0">
+    <aside className="hidden w-[100px] sticky xl:block min-w-[100px] lg:flex flex-col justify-between	bg-white px-2 py-4 h-dvh drop-shadow shadow z-99 top-0">
       <div>
         <div className="flex items-center justify-center mt-4">
           <img src="/logo/black-logo.png" alt="logo" />

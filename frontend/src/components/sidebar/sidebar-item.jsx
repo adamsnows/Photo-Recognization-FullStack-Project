@@ -22,7 +22,7 @@ const SidebarItem = ({ icon, label, path, onClick }) => {
       <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>
           <Link href={path}>
-            <div className="flex items-center gap-4 group hover:bg-sidebar-gradient hover:text-white rounded-lg cursor-pointer">
+            <div className="flex items-center gap-4 group hover:bg-sidebar-gradient hover:text-white rounded-lg cursor-pointer shadow-md drop-shadow">
               <Button
                 variant="ghost"
                 size="icon"
@@ -33,6 +33,8 @@ const SidebarItem = ({ icon, label, path, onClick }) => {
               >
                 {icon}
               </Button>
+
+              <div className=" xl:hidden text-black/50">{label}</div>
             </div>
           </Link>
         </TooltipTrigger>
