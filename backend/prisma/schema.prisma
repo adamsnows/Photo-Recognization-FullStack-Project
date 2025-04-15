@@ -16,7 +16,7 @@ datasource db {
 }
 
 model Photo {
-    id                   Int      @id @default(autoincrement()) @map("id")
+    id                   String   @id @default(uuid()) @db.VarChar(36)  
     name                 String   @map("name")
     collection           String   @map("collection")
     location             String   @map("location")

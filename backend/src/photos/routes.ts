@@ -38,7 +38,7 @@ export async function photosRoutes(fastify: FastifyInstance) {
     const { id } = req.params as { id: string };
     const photo = await prisma.photo.findUnique({
       where: {
-        id: Number(id),
+        id: id,
       },
     });
 
