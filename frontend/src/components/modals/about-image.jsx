@@ -35,17 +35,17 @@ const AboutImageModal = () => {
             {isLoading ? (
               <Skeleton height="100%" width="100%" />
             ) : (
-              <div className="h-[350px] overflow-hidden">
+              <div className="h-[350px] lg:h-auto overflow-hidden">
                 <img
                   src={`https://photos-api-434732873433.us-central1.run.app/images/${modalData.id}`}
                   alt={modalData.name}
-                  className="h-[100%] w-full object-cover object-center rounded-t-2xl"
+                  className="h-[100%] w-full object-cover object-center rounded-t-2xl lg:rounded-l-xl lg:rounded-none"
                 />
               </div>
             )}
           </div>
 
-          <div className="flex flex-col gap-8 p-2 lg:-ms-6 text-[11px]">
+          <div className="flex flex-col gap-8 p-2 lg:ms-6 text-[11px]">
             <div className="flex flex-col text-start text-black/60 lg:gap-3">
               {isLoading ? (
                 <>
