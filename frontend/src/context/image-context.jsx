@@ -114,7 +114,6 @@ export const ImageProvider = ({ children }) => {
       api
         .post("/search-by-image", formData)
         .then((response) => {
-          console.log("💬 Dados recebidos:", response.data);
           setSearchImageResults(response.data);
         })
         .catch((error) => {
@@ -146,7 +145,6 @@ export const ImageProvider = ({ children }) => {
 
       try {
         const result = await api.post("/search-by-image", formData);
-        console.log("💬 Dados recebidos:", result.data);
         setSearchImageResults(result.data);
       } catch (error) {
         console.error("Erro ao buscar imagem semelhante:", error);
