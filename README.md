@@ -59,7 +59,7 @@ npm run build         # Build de produção
 
 ## 🚀 Deploy
 
-- **Frontend:** Vercel com CI/CD automático via GitHub Actions.
+- **Frontend:** GCP com CI/CD automático via GitHub Actions.
 - **Backend:** GCP com CI/CD automático via Github Actions.
 
 - O deploy é feito automaticamente quando a main do frontend ou backend é atualizada.
@@ -70,9 +70,11 @@ npm run build         # Build de produção
 
 ## ✨ Rotas backend
 
-- /photos -> Trás todas fotos no banco de dados;
-- /search-by-image -> Procura fotos semelhantes usando uma imagem;
-- /search?term=<term> -> Procura fotos com algum dos termos citados na pesquisa.
+- /photos GET -> Trás todas fotos no banco de dados;
+- /photos/:id (GET) -> Trás uma foto específica
+- /photos/:id (DELETE) -> Deleta uma foto específica
+- /search-by-image POST -> Procura fotos semelhantes a pelo menos 40% usando uma imagem;
+- /search?term=<term> POST -> Procura fotos com algum dos termos citados na pesquisa.
 
 ---
 
