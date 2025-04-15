@@ -132,16 +132,12 @@ const ImageSearchModal = () => {
                   </div>
                 </>
               ) : (
-                <div className="absolute bottom-[50px] justify-center items-center flex flex-col gap-2 text-[12px]">
+                <div className="absolute bottom-[30px] justify-center items-center flex flex-col gap-2 text-[12px]">
                   <div
                     onClick={handleExploreClick}
                     className="flex items-center justify-center gap-1 rounded-[4px] px-4 py-1 bg-white text-[#434343] z-10 cursor-pointer"
                   >
                     Explorar <FiScissors className="rotate-180 text-[16px]" />
-                  </div>
-                  <div className="flex items-center justify-center gap-2 rounded-[4px] px-4 py-1 bg-white text-[#434343] z-10 cursor-pointer text-nowrap">
-                    Procurar semelhante
-                    <FaMagnifyingGlass className="text-[16px]" />
                   </div>
                 </div>
               )}
@@ -165,9 +161,6 @@ const ImageSearchModal = () => {
                 </div>
               ) : searchImageResults?.length > 0 ? (
                 <div className="lg:w-full lg:h-full overflow-y-auto lg:pe-2 text-center">
-                  <span className="lg:hidden text-[12px] text-black/50">
-                    Resultados da pesquisa
-                  </span>
                   <div className="grid grid-cols-1 xl:grid-cols-2 gap-2 h-full">
                     {searchImageResults.map((photo) => (
                       <img
