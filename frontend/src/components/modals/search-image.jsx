@@ -42,7 +42,7 @@ const ImageSearchModal = () => {
       <div
         className={`${
           preview
-            ? "w-[80%] max-w-[1580px] max-h-[690px] 2xl:max-h-[790]"
+            ? "w-[80%] max-w-[1580px] max-h-[90%] 2xl:max-h-[790]"
             : "w-[90%] lg:w-[790px] h-[420px]"
         } rounded-[16px] py-[20px] px-2 lg:px-[40px] flex bg-white shadow-[0px_4px_40px_rgba(0,0,0,0.1)] relative transition-all justify-center`}
         onClick={(e) => e.stopPropagation()}
@@ -50,7 +50,7 @@ const ImageSearchModal = () => {
         onDragOver={(e) => e.preventDefault()}
       >
         <IoIosClose
-          className="text-black text-[42px] absolute z-1 right-0 top-0 cursor-pointer m-2"
+          className="text-white lg:text-black text-[42px] absolute z-1 right-0 top-0 cursor-pointer m-2 shadow-xl drop-shadow-xllg:m-2"
           onClick={closeModal}
         />
 
@@ -88,7 +88,7 @@ const ImageSearchModal = () => {
           </div>
         ) : (
           <div className="w-full flex flex-col lg:flex-row gap-4 lg:p-6 justify-center items-center">
-            <div className="lg:w-[600px] lg:h-[600px] relative bg-gray-50 flex items-center justify-center rounded-[8px]">
+            <div className="w-full lg:w-[600px] lg:h-[600px] relative bg-gray-50 flex items-center justify-center rounded-[8px]">
               {showCropper ? (
                 <Cropper
                   image={preview}
@@ -105,7 +105,7 @@ const ImageSearchModal = () => {
                 <img
                   src={preview}
                   alt="Pré-visualização"
-                  className="object-cover h-[300px] lg:w-full lg:h-full rounded-[8px] mb-2 lg:mb-0"
+                  className="object-cover h-[400px] w-full object-center lg:w-full lg:h-full rounded-[8px] mb-2 lg:mb-0"
                 />
               )}
 
