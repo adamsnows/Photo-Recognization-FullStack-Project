@@ -40,7 +40,7 @@ const GalleryGrid = ({ gridStyle }) => {
         gridStyle
           ? gridStyle
           : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-      } gap-[20px] w-full px-10 lg:w-auto lg:px-0`}
+      } gap-[20px] w-full lg:px-10 lg:w-auto`}
     >
       {(gridStyle ? photos : photos.slice(0, 10)).map((photo) => (
         <GalleryCard

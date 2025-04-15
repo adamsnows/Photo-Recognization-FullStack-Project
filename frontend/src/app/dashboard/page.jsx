@@ -33,9 +33,9 @@ const DashboardPage = () => {
       <div className="w-full flex flex-col text-gray-500">
         <h1 className="font-bold text-gray-700">Painel administrador</h1>
         <span>Visualize, suba novas imagens ou delete imagens.</span>
-        <div className="border-b border-black/10 my-5"></div>
+        <div className="border-b border-black/30 my-5"></div>
 
-        <div className="flex w-full h-full">
+        <div className="flex flex-col lg:flex-row w-full h-full">
           <aside className="flex flex-col gap-4">
             <span
               onClick={() => setTab("view")}
@@ -55,7 +55,9 @@ const DashboardPage = () => {
             </span>
           </aside>
 
-          <div className="border-r h-full border-black/10 mx-5" />
+          <div className="my-3 border-b border-black/30 lg:hidden" />
+
+          <div className="border-r h-full border-black/10 mx-5 hidden lg:block" />
 
           <div className="px-5 w-full">
             {tab === "view" && (
