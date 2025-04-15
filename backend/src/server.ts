@@ -23,6 +23,7 @@ await server.register(multipart, {
 
 await server.register(cors, {
   origin: '*', 
+  methods: ["GET", "POST", "PUT", "DELETE"]
 })
 
 await server.register(fastifyStatic, {

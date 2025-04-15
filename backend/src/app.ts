@@ -13,4 +13,3 @@ app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
 await app.register(photosRoutes, { prefix: "/photos" });
-console.log('test')
