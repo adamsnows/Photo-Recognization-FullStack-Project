@@ -29,7 +29,7 @@ const ImageSearchModal = () => {
     setCropSize,
     handleCropAndSearch,
     searchImageResults,
-    isLoading, // Supondo que você tenha um estado `isLoading` no contexto de imagem
+    isLoading,
   } = useImage();
 
   if (activeModal !== "search") return null;
@@ -148,7 +148,7 @@ const ImageSearchModal = () => {
                 Resultados da pesquisa
               </span>
               {isLoading ? (
-                <div className="hidden lg:grid grid-cols-1 lg:[grid-template-columns:repeat(auto-fit,minmax(400px,1fr))] gap-2 h-full">
+                <div className="grid [grid-template-columns:repeat(auto-fit,minmax(328px,1fr))] gap-2 h-full">
                   {[...Array(4)].map((_, i) => (
                     <Skeleton
                       key={i}
