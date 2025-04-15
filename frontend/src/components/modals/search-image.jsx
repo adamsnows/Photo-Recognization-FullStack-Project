@@ -152,7 +152,7 @@ const ImageSearchModal = () => {
                 Resultados da pesquisa
               </span>
               {isLoading ? (
-                <div className="hidden lg:grid grid-cols-1 lg:[grid-template-columns:repeat(auto-fit,minmax(200px,1fr))] gap-2 h-full">
+                <div className="hidden lg:grid grid-cols-1 lg:[grid-template-columns:repeat(auto-fit,minmax(400px,1fr))] gap-2 h-full">
                   {[...Array(4)].map((_, i) => (
                     <Skeleton
                       key={i}
@@ -174,7 +174,7 @@ const ImageSearchModal = () => {
                         key={photo.id}
                         src={`https://photos-api-434732873433.us-central1.run.app/images/${photo.id}`}
                         alt={photo.name}
-                        className="h-[300px] lg:h-full object-cover rounded-[8px] mx-auto"
+                        className="w-full lg:h-full object-cover rounded-[8px] mx-auto object-center"
                       />
                     ))}
                   </div>
