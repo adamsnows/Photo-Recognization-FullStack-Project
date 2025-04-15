@@ -4,12 +4,12 @@ import { useSearch } from "@/context/search-context";
 import GalleryCard from "../cards";
 import Skeleton from "react-loading-skeleton";
 
-const GalleryGrid = () => {
+const GalleryGrid = ({ gridStyle }) => {
   const { photos, loading } = useSearch();
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-[20px] ">
+      <div className="grid #{gridStyle ? gridStyle : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'} gap-[20px] ">
         {Array(10)
           .fill(0)
           .map((_, index) => (
@@ -35,12 +35,19 @@ const GalleryGrid = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-[20px] w-full px-10 lg:w-auto lg:px-0">
-      {photos.slice(0, 10).map((photo) => (
+    <div
+      className={`grid ${
+        gridStyle
+          ? gridStyle
+          : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+      } gap-[20px] w-full px-10 lg:w-auto lg:px-0`}
+    >
+      {(gridStyle ? photos : photos.slice(0, 10)).map((photo) => (
         <GalleryCard
           key={photo.id}
           url={photo.imageUrl}
           collection={photo.collection}
+          hasDelete={gridStyle}
           {...photo}
         />
       ))}
