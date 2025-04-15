@@ -7,6 +7,7 @@ import AboutImageModal from "@/components/modals/about-image";
 import { SearchProvider } from "@/context/search-context";
 import { NavbarProvider } from "@/context/navbar-context";
 import NextTopLoader from "nextjs-toploader";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
                   zIndex={1600}
                   showAtBottom={false}
                 />
+                <ToastContainer />
                 {children}
                 <ImageSearchModal />
                 <AboutImageModal />

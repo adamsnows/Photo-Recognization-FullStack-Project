@@ -9,7 +9,7 @@ const GalleryGrid = ({ gridStyle }) => {
 
   if (loading) {
     return (
-      <div className="grid #{gridStyle ? gridStyle : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'} gap-[20px] ">
+      <div className="grid #{gridStyle ? gridStyle : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:[grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]'} gap-[20px] ">
         {Array(10)
           .fill(0)
           .map((_, index) => (

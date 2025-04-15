@@ -5,12 +5,13 @@ import GalleryGrid from "@/components/gallery";
 import * as Form from "@radix-ui/react-form";
 import { CiImageOn } from "react-icons/ci";
 import { uploadPhoto } from "@/lib/utils";
-import api from "@/lib/api";
+import { toast } from "react-toastify";
 
 const DashboardPage = () => {
   const [tab, setTab] = useState("view");
   const [previewUrl, setPreviewUrl] = useState(null);
   const [file, setFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fields = [
     "collection",
@@ -73,9 +74,12 @@ const DashboardPage = () => {
                   className="gap-4"
                   onSubmit={async (e) => {
                     e.preventDefault();
+                    setIsLoading(true);
 
                     if (!file) {
-                      alert("Selecione uma imagem");
+                      toast("Selecione uma imagem", {
+                        type: "error",
+                      });
                       return;
                     }
 
@@ -101,9 +105,14 @@ const DashboardPage = () => {
 
                     try {
                       const photo = await uploadPhoto({ data, image: file });
-                      alert("Imagem enviada com sucesso!");
+                      toast("Imagem enviada com sucesso!", {
+                        type: "success",
+                      });
+                      setIsLoading(false);
                     } catch (err) {
-                      alert(err.message);
+                      toast(err.message, {
+                        type: "error",
+                      });
                     }
                   }}
                 >
@@ -190,7 +199,7 @@ const DashboardPage = () => {
                       type="submit"
                       className="bg-black/30 text-black/70 font-medium w-full mt-20 px-4 py-2 rounded hover:bg-black/70 hover:text-white duration-300 transition-all cursor-pointer shadow drop-shadow"
                     >
-                      Enviar imagem
+                      {isLoading ? "Carregando..." : "Enviar"}
                     </button>
                   </Form.Submit>
                 </Form.Root>
