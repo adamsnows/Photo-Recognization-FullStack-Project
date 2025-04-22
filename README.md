@@ -1,4 +1,87 @@
-# 📸 Photos API + Farm RIO
+
+# 📸 ENG: Fullstack Project / GCloud Vision for Photo Intelligent Recognition
+
+This is a fullstack project for intelligent image management and search, integrated with the **Google Vision API** for recognizing similar photos based on visual characteristics.
+
+## ✨ Features
+
+- 🔍 **Search by attributes** such as collection, location, model, creative direction, and more.
+- 🧠 **Visual similarity search** using the Google Vision API.
+- 📦 Monorepo structure with separated Frontend and Backend.
+- 🚀 Automatic deployment with **GitHub Actions**, **Vercel** (Frontend), and **Google Cloud Platform** (Backend).
+- 🐳 Containerized backend with **Docker**.
+
+## 🖥️ Technologies
+
+### Backend
+- [Fastify](https://fastify.dev/) — Lightweight and fast Node.js API framework.
+- [Prisma ORM](https://www.prisma.io/) — Modern type-safe ORM.
+- [PostgreSQL](https://www.postgresql.org/) — Relational database.
+- [Google Cloud Vision](https://cloud.google.com/vision) — API for visual similarity detection.
+- Deployed on **Google Cloud Run** with **Docker**.
+
+### Frontend
+- [Next.js](https://nextjs.org/) — React framework for modern web applications.
+- [Tailwind CSS](https://tailwindcss.com/) — Utility-first CSS framework.
+- [React Easy Crop](https://github.com/ValeryBugakov/react-easy-crop) — Component for image selection and cropping.
+- Deployed on **Google Cloud Run** with **Docker**.
+
+## 🗂 Monorepo Structure
+
+```
+/
+├── backend/
+│   ├── src/
+│   ├── prisma/
+│   └── Dockerfile
+│
+├── frontend/
+│   ├── app/
+│   └── public/
+│
+└── README.md
+```
+
+## ⚙️ Useful Scripts
+
+### Backend
+```bash
+npm run dev           # Starts the API in development mode
+npm run seed          # Seeds the database
+npm run build         # Builds the server
+npm run release       # Builds + Docker push + deploy to GCP
+```
+
+### Frontend
+```bash
+npm run dev           # Starts the frontend locally
+npm run build         # Production build
+```
+
+## 🚀 Deployment
+
+- **Frontend:** GCP with CI/CD via GitHub Actions.
+- **Backend:** GCP with CI/CD via GitHub Actions.
+
+- Deployment is automatic when the frontend or backend main branches are updated.
+
+- [Frontend Deploy](https://farm-rio-434732873433.us-central1.run.app)
+- [Backend Deploy](https://photos-api-434732873433.us-central1.run.app)
+
+## ✨ Backend Routes
+
+- /photos (GET) -> Returns all photos from the database
+- /photos/:id (GET) -> Returns a specific photo
+- /photos/:id (DELETE) -> Deletes a specific photo
+- /search-by-image (POST) -> Searches for visually similar photos (minimum 40%)
+- /search?term=<term> (POST) -> Searches for photos using a specific keyword
+
+---
+
+Developed by Adam.
+
+
+# 📸 PT-BR: Projeto Fullstack / GCloud Vision API para Reconhecimento inteligente de fotos.
 
 Este é um projeto full stack para gerenciamento e busca inteligente de imagens, com integração à **Google Vision API** para identificação de fotos semelhantes com base em características visuais.
 
