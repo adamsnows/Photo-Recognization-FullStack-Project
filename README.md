@@ -1,3 +1,4 @@
+Both with autodeploy in Github Actions
 
 # 📸 ENG: Fullstack Project / GCloud Vision for Photo Intelligent Recognition
 
