@@ -67,6 +67,7 @@ npm run build         # Production build
 - Deployment is automatic when the frontend or backend main branches are updated.
 
 - [Frontend Deploy](https://farm-rio-434732873433.us-central1.run.app)
+- [Frontend Deploy (Vercel)](https://farmrio-navy.vercel.app)
 - [Backend Deploy](https://photos-api-434732873433.us-central1.run.app)
 
 ## ✨ Backend Routes
@@ -148,8 +149,9 @@ npm run build         # Build de produção
 
 - O deploy é feito automaticamente quando a main do frontend ou backend é atualizada.
 
-- [Deploy do Frontend](https://farm-rio-434732873433.us-central1.run.app)
-- [Deploy do Backend](https://photos-api-434732873433.us-central1.run.app)
+- [Frontend Deploy](https://farm-rio-434732873433.us-central1.run.app)
+- [Frontend Deploy (Vercel)](https://farmrio-navy.vercel.app)
+- [Backend Deploy](https://photos-api-434732873433.us-central1.run.app)
 
 
 ## ✨ Rotas backend
